@@ -2,6 +2,7 @@
 
 const axios = require("axios");
 const fs = require("fs");
+const path = require("path");
 const prettier = require("prettier");
 const validator = require("html-validator");
 
@@ -22,6 +23,7 @@ const prettierHtml = async (html, filepath) => {
   });
   console.log(result);
 
+  fs.mkdirSync(path.dirname(filepath), { recursive: true });
   fs.writeFileSync(filepath, html);
 };
 
