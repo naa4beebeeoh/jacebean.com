@@ -80,6 +80,7 @@ const chp = async () => {
     const now = new Date();
 
     const res = await axios.get(
+      // "https://services8.arcgis.com/PXQv9PaDJHzt8rp0/arcgis/rest/services/Merge_Display_0227_View/FeatureServer/0/query?f=json&where=Status%3D%27Existing%27&outFields=*"
       "https://services8.arcgis.com/PXQv9PaDJHzt8rp0/arcgis/rest/services/StayBuildingWithHistory_0227_View/FeatureServer/0/query?f=json&where=Status%3DN%27Existing%27&outFields=*"
     );
 
@@ -384,6 +385,7 @@ const chp = async () => {
     fs.copyFileSync("docs/chp/index.html", "docs/index.html");
   } catch (e) {
     console.error(e);
+    process.exit(1);
   }
 };
 
@@ -473,6 +475,7 @@ const itunes = async () => {
     fs.copyFileSync("docs/itunes/hk/index.html", "docs/itunes/index.html");
   } catch (e) {
     console.error(e);
+    process.exit(2);
   }
 };
 
@@ -482,6 +485,7 @@ const run = async () => {
     await itunes();
   } catch (e) {
     console.error(e);
+    process.exit(3);
   }
 };
 
