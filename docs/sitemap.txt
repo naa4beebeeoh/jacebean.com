@@ -1,5 +1,6 @@
 https://www.jacebean.com/chp/centralwestern.html
 https://www.jacebean.com/chp/eastern.html
+https://www.jacebean.com/chp/index.html
 https://www.jacebean.com/chp/islands.html
 https://www.jacebean.com/chp/kowlooncity.html
 https://www.jacebean.com/chp/kwaitsing.html
@@ -19,6 +20,7 @@ https://www.jacebean.com/chp/yuenlong.html
 https://www.jacebean.com/index.html
 https://www.jacebean.com/itunes/gb/index.html
 https://www.jacebean.com/itunes/hk/index.html
+https://www.jacebean.com/itunes/index.html
 https://www.jacebean.com/itunes/jp/index.html
 https://www.jacebean.com/itunes/tw/index.html
 https://www.jacebean.com/itunes/us/index.html
