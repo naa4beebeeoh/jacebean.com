@@ -1,23 +1,23 @@
 {
-  "name": "itunes",
+  "name": "jacebean.com",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "axios": "0.19.2",
+    "prettier": "2.0.5"
+  },
   "devDependencies": {
-    "@commitlint/cli": "^8.3.5",
-    "@commitlint/config-conventional": "^8.3.4",
-    "axios": "^0.19.2",
-    "html-validator": "^5.1.8",
-    "husky": "^4.2.5",
-    "lint-staged": "^10.1.3",
-    "prettier": "^2.0.4"
+    "@commitlint/cli": "9.1.1",
+    "@commitlint/config-conventional": "9.1.1",
+    "husky": "4.2.5",
+    "lint-staged": "10.2.11"
   },
   "husky": {
     "hooks": {
