@@ -46,6 +46,35 @@ const getFirebaseSnippet = () => {
     </script>`;
 };
 
+const getChpStyle = () => {
+  return `
+    <link href="/favicon.ico" rel="icon" type="image/png" />
+    <style>
+    table {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    tr:nth-child(even){background-color: #f2f2f2;}
+
+    tr:hover {background-color: #ddd;}
+
+    th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #4CAF50;
+      color: white;
+    }
+    </style>`;
+};
+
 const chp = async () => {
   try {
     const now = new Date();
@@ -196,10 +225,69 @@ const chp = async () => {
       }
     }
 
+    districts.sort((a, b) => {
+      return (
+        b.residential.length +
+        b.nonResidential.length -
+        (a.residential.length + a.nonResidential.length)
+      );
+    });
+
+    let html = `
+<!DOCTYPE html>
+<html lang="zh-Hant" translate="no">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="新型冠狀病毒, 個案, 大廈名單" />
+    <title>新型冠狀病毒個案大廈名單</title>
+    <meta property="title" content="新型冠狀病毒個案大廈名單" />
+    <meta property="og:title" content="新型冠狀病毒個案大廈名單" />
+    <meta property="description" content="新型冠狀病毒個案大廈名單" />
+    <meta property="og:description" content="新型冠狀病毒個案大廈名單" />
+    ${getChpStyle()}
+  </head>
+  <body>
+    <table>
+      <tr>
+        <th>最後更新日期</th>
+      </tr>
+      <tr>
+        <td>${now.toLocaleString()}</td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <th>地區</th>
+        <th>總數 (${districts.reduce(
+          (a, b) => a + b.residential.length + b.nonResidential.length,
+          0
+        )})</th>
+      </tr>`;
+
+    for (let district of districts) {
+      html += `
+      <tr>
+        <td><a target="_blank" href="/chp/${district.filename}">${
+        district.name
+      }</a></td>
+        <td>${district.residential.length + district.nonResidential.length}</td>
+      </tr>`;
+    }
+
+    html += `
+    </table>
+    ${getFirebaseSnippet()}
+  </body>
+</html>`;
+
+    await prettierHtml(html, `docs/chp/index.html`);
+
     for (let district of districts) {
       let html = `
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant" translate="no">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -220,31 +308,7 @@ const chp = async () => {
     <meta property="og:description" content="新型冠狀病毒個案大廈名單 - ${
       district.name
     }" />
-    <link href="/favicon.ico" rel="icon" type="image/png" />
-    <style>
-    table {
-      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-      border-collapse: collapse;
-      width: 100%;
-    }
-
-    td, th {
-      border: 1px solid #ddd;
-      padding: 8px;
-    }
-
-    tr:nth-child(even){background-color: #f2f2f2;}
-
-    tr:hover {background-color: #ddd;}
-
-    th {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      text-align: left;
-      background-color: #4CAF50;
-      color: white;
-    }
-    </style>
+    ${getChpStyle()}
   </head>
   <body>
     <table>
@@ -268,7 +332,7 @@ const chp = async () => {
       for (let building of district.residential) {
         html += `
       <tr>
-        <td><a target="_blank" href="https://maps.google.com/maps?q=${
+        <td><a target="_blank" href="https://www.google.com/maps?q=${
           district.name
         }+${building["大廈名單"].replace(/ /g, "+")}">${
           building["大廈名單"]
@@ -316,6 +380,8 @@ const chp = async () => {
 
       await prettierHtml(html, `docs/chp/${district.filename}`);
     }
+
+    fs.copyFileSync("docs/chp/index.html", "docs/index.html");
   } catch (e) {
     console.error(e);
   }
@@ -343,7 +409,7 @@ const itunes = async () => {
 
       let html = `
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -404,7 +470,7 @@ const itunes = async () => {
       await prettierHtml(html, `docs/itunes/${country.code}/index.html`);
     }
 
-    fs.copyFileSync("docs/itunes/hk/index.html", "docs/index.html");
+    fs.copyFileSync("docs/itunes/hk/index.html", "docs/itunes/index.html");
   } catch (e) {
     console.error(e);
   }
