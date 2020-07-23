@@ -119,7 +119,11 @@ const chp = async () => {
       for (let building of district.residential) {
         html += `
       <tr>
-        <td>${building["大廈名單"]}</td>
+        <td><a target="_blank" href="https://maps.google.com/maps?q=${
+          district.name
+        }+${building["大廈名單"].replace(/ /g, "+")}">${
+          building["大廈名單"]
+        }</a></td>
         <td>${building.Related_confirmed_cases}</td>
       </tr>`;
       }
@@ -145,7 +149,11 @@ const chp = async () => {
 
         html += `
       <tr>
-        <td>${building["大廈名單"]}</td>
+        <td><a target="_blank" href="https://maps.google.com/maps?q=${
+          district.name
+        }+${building["大廈名單"].replace(/ /g, "+")}">${
+          building["大廈名單"]
+        }</a></td>
         <td>${year}-${month}-${day}</td>
         <td>${building.Related_confirmed_cases}</td>
       </tr>`;
