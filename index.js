@@ -89,128 +89,92 @@ const chp = async () => {
         name: "中西區",
         district: "Central & Western",
         filename: "centralwestern.html",
-        residential: [],
-        nonResidential: [],
       },
       {
         name: "東區",
         district: "Eastern",
         filename: "eastern.html",
-        residential: [],
-        nonResidential: [],
       },
       {
         name: "離島",
         district: "Islands",
         filename: "islands.html",
-        residential: [],
-        nonResidential: [],
       },
       {
         name: "九龍城",
         district: "Kowloon City",
         filename: "kowlooncity.html",
-        residential: [],
-        nonResidential: [],
       },
       {
         name: "葵青",
         district: "Kwai Tsing",
         filename: "kwaitsing.html",
-        residential: [],
-        nonResidential: [],
       },
       {
         name: "觀塘",
         district: "Kwun Tong",
         filename: "kwuntong.html",
-        residential: [],
-        nonResidential: [],
       },
       {
         name: "北區",
         district: "North",
         filename: "north.html",
-        residential: [],
-        nonResidential: [],
       },
       {
         name: "西貢",
         district: "Sai Kung",
         filename: "saikung.html",
-        residential: [],
-        nonResidential: [],
       },
       {
         name: "沙田",
         district: "Sha Tin",
         filename: "shatin.html",
-        residential: [],
-        nonResidential: [],
       },
       {
         name: "深水埗",
         district: "Sham Shui Po",
         filename: "shamshuipo.html",
-        residential: [],
-        nonResidential: [],
       },
       {
         name: "南區",
         district: "Southern",
         filename: "southern.html",
-        residential: [],
-        nonResidential: [],
       },
 
       {
         name: "大埔",
         district: "Tai Po",
         filename: "taipo.html",
-        residential: [],
-        nonResidential: [],
       },
       {
         name: "荃灣",
         district: "Tsuen Wan",
         filename: "tsuenwan.html",
-        residential: [],
-        nonResidential: [],
       },
       {
         name: "屯門",
         district: "Tuen Mun",
         filename: "tuenmun.html",
-        residential: [],
-        nonResidential: [],
       },
       {
         name: "灣仔",
         district: "Wan Chai",
         filename: "wanchai.html",
-        residential: [],
-        nonResidential: [],
       },
       {
         name: "黃大仙",
         district: "Wong Tai Sin",
         filename: "wongtaisin.html",
-        residential: [],
-        nonResidential: [],
       },
       {
         name: "油尖旺",
         district: "Yau Tsim Mong",
         filename: "yautsimmong.html",
-        residential: [],
-        nonResidential: [],
       },
       {
         name: "元朗",
         district: "Yuen Long",
         filename: "yuenlong.html",
-        residential: [],
-        nonResidential: [],
       },
     ];
 
@@ -218,8 +182,10 @@ const chp = async () => {
       for (let district of districts) {
         if (feature.attributes.District === district.district) {
           if (feature.attributes.BuildingName.match("non-residential")) {
+            if (!district.nonResidential) district.nonResidential = [];
             district.nonResidential.push(feature.attributes);
           } else {
+            if (!district.residential) district.residential = [];
             district.residential.push(feature.attributes);
           }
         }
@@ -455,9 +421,11 @@ const itunes = async () => {
             href="${movie.url}?at=1000lHjy"
             ><img
               loading="lazy"
-              alt="${movie.name}"
+              alt="${movie.name.replace(/"/g, "&quot;")}"
               src="${movie.artworkUrl100}"
-            /><br />${movie.name}<br />${movie.releaseDate}</a
+            /><br />${movie.name.replace(/"/g, "&quot;")}<br />${
+          movie.releaseDate
+        }</a
           >
         </div>`;
       }
