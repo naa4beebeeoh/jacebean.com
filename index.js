@@ -19,6 +19,33 @@ const prettierHtml = async (html, filepath) => {
   fs.writeFileSync(filepath, html);
 };
 
+const getFirebaseSnippet = () => {
+  return `
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyDWpRDJR-QXfoJpC4owgAjAcAJI1lCo5Fg",
+        authDomain: "jacebean-715.firebaseapp.com",
+        databaseURL: "https://jacebean-715.firebaseio.com",
+        projectId: "jacebean-715",
+        storageBucket: "jacebean-715.appspot.com",
+        messagingSenderId: "837393448164",
+        appId: "1:837393448164:web:0103c5b195fa486799c0f1",
+        measurementId: "G-YCNJGDFT77",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>`;
+};
+
 const chp = async () => {
   try {
     const now = new Date();
@@ -29,9 +56,87 @@ const chp = async () => {
 
     const districts = [
       {
-        name: "屯門",
-        district: "Tuen Mun",
-        filename: "tuenmun.html",
+        name: "中西區",
+        district: "Central & Western",
+        filename: "centralwestern.html",
+        residential: [],
+        nonResidential: [],
+      },
+      {
+        name: "東區",
+        district: "Eastern",
+        filename: "eastern.html",
+        residential: [],
+        nonResidential: [],
+      },
+      {
+        name: "離島",
+        district: "Islands",
+        filename: "islands.html",
+        residential: [],
+        nonResidential: [],
+      },
+      {
+        name: "九龍城",
+        district: "Kowloon City",
+        filename: "kowlooncity.html",
+        residential: [],
+        nonResidential: [],
+      },
+      {
+        name: "葵青",
+        district: "Kwai Tsing",
+        filename: "kwaitsing.html",
+        residential: [],
+        nonResidential: [],
+      },
+      {
+        name: "觀塘",
+        district: "Kwun Tong",
+        filename: "kwuntong.html",
+        residential: [],
+        nonResidential: [],
+      },
+      {
+        name: "北區",
+        district: "North",
+        filename: "north.html",
+        residential: [],
+        nonResidential: [],
+      },
+      {
+        name: "西貢",
+        district: "Sai Kung",
+        filename: "saikung.html",
+        residential: [],
+        nonResidential: [],
+      },
+      {
+        name: "沙田",
+        district: "Sha Tin",
+        filename: "shatin.html",
+        residential: [],
+        nonResidential: [],
+      },
+      {
+        name: "深水埗",
+        district: "Sham Shui Po",
+        filename: "shamshuipo.html",
+        residential: [],
+        nonResidential: [],
+      },
+      {
+        name: "南區",
+        district: "Southern",
+        filename: "southern.html",
+        residential: [],
+        nonResidential: [],
+      },
+
+      {
+        name: "大埔",
+        district: "Tai Po",
+        filename: "taipo.html",
         residential: [],
         nonResidential: [],
       },
@@ -39,6 +144,34 @@ const chp = async () => {
         name: "荃灣",
         district: "Tsuen Wan",
         filename: "tsuenwan.html",
+        residential: [],
+        nonResidential: [],
+      },
+      {
+        name: "屯門",
+        district: "Tuen Mun",
+        filename: "tuenmun.html",
+        residential: [],
+        nonResidential: [],
+      },
+      {
+        name: "灣仔",
+        district: "Wan Chai",
+        filename: "wanchai.html",
+        residential: [],
+        nonResidential: [],
+      },
+      {
+        name: "黃大仙",
+        district: "Wong Tai Sin",
+        filename: "wongtaisin.html",
+        residential: [],
+        nonResidential: [],
+      },
+      {
+        name: "油尖旺",
+        district: "Yau Tsim Mong",
+        filename: "yautsimmong.html",
         residential: [],
         nonResidential: [],
       },
@@ -70,7 +203,25 @@ const chp = async () => {
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>${district.name}</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="新型冠狀病毒, 個案, 大廈名單, ${
+      district.name
+    }" />
+    <title>新型冠狀病毒個案大廈名單 - ${district.name}</title>
+    <meta property="title" content="新型冠狀病毒個案大廈名單 - ${
+      district.name
+    }" />
+    <meta property="og:title" content="新型冠狀病毒個案大廈名單 - ${
+      district.name
+    }" />
+    <meta property="description" content="新型冠狀病毒個案大廈名單 - ${
+      district.name
+    }" />
+    <meta property="og:description" content="新型冠狀病毒個案大廈名單 - ${
+      district.name
+    }" />
     <link href="/favicon.ico" rel="icon" type="image/png" />
     <style>
     table {
@@ -161,6 +312,7 @@ const chp = async () => {
 
       html += `
     </table>
+    ${getFirebaseSnippet()}
   </body>
 </html>`;
 
@@ -227,49 +379,27 @@ const itunes = async () => {
     </style>
   </head>
   <body>
-  <div class="container">
-    <div class="chart">`;
+    <div class="container">
+      <div class="chart">`;
 
       for (let movie of res.data.feed.results) {
         html += `
-      <div class="movie">
-        <a
-          href="${movie.url}?at=1000lHjy"
-          ><img
-            loading="lazy"
-            alt="${movie.name}"
-            src="${movie.artworkUrl100}"
-          /><br />${movie.name}<br />${movie.releaseDate}</a
-        >
-      </div>`;
+        <div class="movie">
+          <a
+            href="${movie.url}?at=1000lHjy"
+            ><img
+              loading="lazy"
+              alt="${movie.name}"
+              src="${movie.artworkUrl100}"
+            /><br />${movie.name}<br />${movie.releaseDate}</a
+          >
+        </div>`;
       }
 
       html += `
+      </div>
     </div>
-    </div>
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-analytics.js"></script>
-
-    <script>
-      // Your web app's Firebase configuration
-      var firebaseConfig = {
-        apiKey: "AIzaSyDWpRDJR-QXfoJpC4owgAjAcAJI1lCo5Fg",
-        authDomain: "jacebean-715.firebaseapp.com",
-        databaseURL: "https://jacebean-715.firebaseio.com",
-        projectId: "jacebean-715",
-        storageBucket: "jacebean-715.appspot.com",
-        messagingSenderId: "837393448164",
-        appId: "1:837393448164:web:0103c5b195fa486799c0f1",
-        measurementId: "G-YCNJGDFT77",
-      };
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      firebase.analytics();
-    </script>
+    ${getFirebaseSnippet()}
   </body>
 </html>`;
 
