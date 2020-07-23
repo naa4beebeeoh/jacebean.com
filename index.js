@@ -196,8 +196,6 @@ const chp = async () => {
       }
     }
 
-    console.log(JSON.stringify(districts, null, 2));
-
     for (let district of districts) {
       let html = `
 <!DOCTYPE html>
