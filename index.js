@@ -21,6 +21,8 @@ const prettierHtml = async (html, filepath) => {
 
 const chp = async () => {
   try {
+    const now = new Date();
+
     const res = await axios.get(
       "https://services8.arcgis.com/PXQv9PaDJHzt8rp0/arcgis/rest/services/StayBuildingWithHistory_0227_View/FeatureServer/0/query?f=json&where=Status%3DN%27Existing%27&outFields=*"
     );
@@ -30,6 +32,13 @@ const chp = async () => {
         name: "屯門",
         district: "Tuen Mun",
         filename: "tuenmun.html",
+        residential: [],
+        nonResidential: [],
+      },
+      {
+        name: "荃灣",
+        district: "Tsuen Wan",
+        filename: "tsuenwan.html",
         residential: [],
         nonResidential: [],
       },
@@ -91,8 +100,16 @@ const chp = async () => {
   <body>
     <table>
       <tr>
-        <th>${district.name}</th>
-        <th>相關確診個案</th>
+        <th>最後更新日期</th>
+      </tr>
+      <tr>
+        <td>${now.toLocaleString()}</td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <th>${district.name} (曾有確診或疑似個案居住過的住宅大廈名單)</th>
+        <th>相關確診/疑似個案編號</th>
       </tr>`;
 
       district.residential.sort((a, b) => {
@@ -111,9 +128,9 @@ const chp = async () => {
     </table>
     <table>
       <tr>
-        <th>${district.name}</th>
-        <th>最後有個案在出現病徵期間逗留的日期</th>
-        <th>相關確診個案</th>
+        <th>${district.name} (曾有確診或疑似個案在自出現病徵前兩天起到訪過的大廈或兩宗或以上確診或疑似個案在潛伏期內到訪過的大廈名單)</th>
+        <th>報告日期/曾有涉及個案最後到訪的日期</th>
+        <th>相關確診/疑似個案編號</th>
       </tr>`;
 
       district.nonResidential.sort((a, b) => {
