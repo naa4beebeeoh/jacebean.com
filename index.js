@@ -6,14 +6,6 @@ const path = require("path");
 const prettier = require("prettier");
 const validator = require("html-validator");
 
-const countries = [
-  { code: "gb", name: "United Kingdom" },
-  { code: "hk", name: "Hong Kong" },
-  { code: "jp", name: "Japan" },
-  { code: "tw", name: "Taiwan" },
-  { code: "us", name: "United States" },
-];
-
 const prettierHtml = async (html, filepath) => {
   html = prettier.format(html, { parser: "html" });
 
@@ -27,8 +19,143 @@ const prettierHtml = async (html, filepath) => {
   fs.writeFileSync(filepath, html);
 };
 
-const run = async () => {
+const chp = async () => {
   try {
+    const res = await axios.get(
+      "https://services8.arcgis.com/PXQv9PaDJHzt8rp0/arcgis/rest/services/StayBuildingWithHistory_0227_View/FeatureServer/0/query?f=json&where=Status%3DN%27Existing%27&outFields=*"
+    );
+
+    const districts = [
+      {
+        name: "屯門",
+        district: "Tuen Mun",
+        filename: "tuenmun.html",
+        residential: [],
+        nonResidential: [],
+      },
+      {
+        name: "元朗",
+        district: "Yuen Long",
+        filename: "yuenlong.html",
+        residential: [],
+        nonResidential: [],
+      },
+    ];
+
+    for (let feature of res.data.features) {
+      for (let district of districts) {
+        if (feature.attributes.District === district.district) {
+          if (feature.attributes.BuildingName.match("non-residential")) {
+            district.nonResidential.push(feature.attributes);
+          } else {
+            district.residential.push(feature.attributes);
+          }
+        }
+      }
+    }
+
+    console.log(JSON.stringify(districts, null, 2));
+
+    for (let district of districts) {
+      let html = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>${district.name}</title>
+    <link href="/favicon.ico" rel="icon" type="image/png" />
+    <style>
+    table {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    tr:nth-child(even){background-color: #f2f2f2;}
+
+    tr:hover {background-color: #ddd;}
+
+    th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #4CAF50;
+      color: white;
+    }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <th>${district.name}</th>
+        <th>相關確診個案</th>
+      </tr>`;
+
+      district.residential.sort((a, b) => {
+        return a["大廈名單"].localeCompare(b["大廈名單"]);
+      });
+
+      for (let building of district.residential) {
+        html += `
+      <tr>
+        <td>${building["大廈名單"]}</td>
+        <td>${building.Related_confirmed_cases}</td>
+      </tr>`;
+      }
+
+      html += `
+    </table>
+    <table>
+      <tr>
+        <th>${district.name}</th>
+        <th>最後有個案在出現病徵期間逗留的日期</th>
+        <th>相關確診個案</th>
+      </tr>`;
+
+      district.nonResidential.sort((a, b) => {
+        return a["大廈名單"].localeCompare(b["大廈名單"]);
+      });
+
+      for (let building of district.nonResidential) {
+        const date = new Date(building.DateoftheLastCase);
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+
+        html += `
+      <tr>
+        <td>${building["大廈名單"]}</td>
+        <td>${year}-${month}-${day}</td>
+        <td>${building.Related_confirmed_cases}</td>
+      </tr>`;
+      }
+
+      html += `
+    </table>
+  </body>
+</html>`;
+
+      await prettierHtml(html, `docs/chp/${district.filename}`);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+const itunes = async () => {
+  try {
+    const countries = [
+      { code: "gb", name: "United Kingdom" },
+      { code: "hk", name: "Hong Kong" },
+      { code: "jp", name: "Japan" },
+      { code: "tw", name: "Taiwan" },
+      { code: "us", name: "United States" },
+    ];
+
     for (let country of countries) {
       const res = await axios.get(
         `https://rss.itunes.apple.com/api/v1/${country.code}/movies/top-movies/all/100/explicit.json`
@@ -125,6 +252,15 @@ const run = async () => {
     }
 
     fs.copyFileSync("docs/itunes/hk/index.html", "docs/index.html");
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+const run = async () => {
+  try {
+    await chp();
+    await itunes();
   } catch (e) {
     console.error(e);
   }
