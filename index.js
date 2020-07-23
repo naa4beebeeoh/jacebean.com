@@ -4,16 +4,9 @@ const axios = require("axios");
 const fs = require("fs");
 const path = require("path");
 const prettier = require("prettier");
-const validator = require("html-validator");
 
 const prettierHtml = async (html, filepath) => {
   html = prettier.format(html, { parser: "html" });
-
-  const result = await validator({
-    data: html,
-    format: "text",
-  });
-  console.log(result);
 
   fs.mkdirSync(path.dirname(filepath), { recursive: true });
   fs.writeFileSync(filepath, html);
@@ -75,13 +68,89 @@ const getChpStyle = () => {
     </style>`;
 };
 
+const writeCaseDetail = async (caseDetail, now) => {
+  let html = `
+<!DOCTYPE html>
+<html lang="zh-Hant" translate="no">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="新型冠狀病毒, 個案, ${
+      caseDetail["個案編號"]
+    }" />
+    <title>新型冠狀病毒個案 - ${caseDetail["個案編號"]}</title>
+    <meta property="title" content="新型冠狀病毒個案 - ${
+      caseDetail["個案編號"]
+    }" />
+    <meta property="og:title" content="新型冠狀病毒個案 - ${
+      caseDetail["個案編號"]
+    }" />
+    <meta property="description" content="新型冠狀病毒個案 - ${
+      caseDetail["個案編號"]
+    }" />
+    <meta property="og:description" content="新型冠狀病毒個案 - ${
+      caseDetail["個案編號"]
+    }" />
+    ${getChpStyle()}
+  </head>
+  <body>
+    <table>
+      <tr>
+        <th>最後更新日期</th>
+      </tr>
+      <tr>
+        <td>${now.toLocaleString()}</td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <th>個案編號</th>
+        <th>${caseDetail["個案編號"]}</th>
+      </tr>`;
+
+  for (let key of [
+    "實驗室確診報告日期",
+    "發病日期",
+    "性別",
+    "年齡",
+    "入住醫院名稱",
+    "住院_出院_死亡",
+    "香港_非香港居民",
+    "個案分類",
+    "確定_懷疑",
+  ]) {
+    html += `
+      <tr>
+        <td>${key.replace(/_/g, "/")}</td>
+        <td>${caseDetail[key]}</td>
+      </tr>`;
+  }
+
+  html += `
+    </table>
+    ${getFirebaseSnippet()}
+  </body>
+</html>`;
+
+  await prettierHtml(html, `docs/chp/${caseDetail["個案編號"]}.html`);
+};
+
 const chp = async () => {
   try {
     const now = new Date();
 
-    const res = await axios.get(
-      // "https://services8.arcgis.com/PXQv9PaDJHzt8rp0/arcgis/rest/services/Merge_Display_0227_View/FeatureServer/0/query?f=json&where=Status%3D%27Existing%27&outFields=*"
-      "https://services8.arcgis.com/PXQv9PaDJHzt8rp0/arcgis/rest/services/StayBuildingWithHistory_0227_View/FeatureServer/0/query?f=json&where=Status%3DN%27Existing%27&outFields=*"
+    const baseUrl =
+      "https://services8.arcgis.com/PXQv9PaDJHzt8rp0/arcgis/rest/services";
+    const urlSuffix =
+      "FeatureServer/0/query?f=json&where=Status%3D%27Existing%27&outFields=*";
+
+    const buildings = await axios.get(
+      `${baseUrl}/StayBuildingWithHistory_0227_View/${urlSuffix}`
+    );
+
+    const cases = await axios.get(
+      `${baseUrl}/Merge_Display_0227_View/${urlSuffix}`
     );
 
     const districts = [
@@ -178,10 +247,21 @@ const chp = async () => {
       },
     ];
 
-    for (let feature of res.data.features) {
+    for (let feature of buildings.data.features) {
       for (let district of districts) {
         if (feature.attributes.District === district.district) {
-          if (feature.attributes.BuildingName.match("non-residential")) {
+          feature.attributes.Related_confirmed_cases = feature.attributes.Related_confirmed_cases.match(
+            /\d+/g
+          );
+
+          for (let buildingCase of feature.attributes.Related_confirmed_cases) {
+            const caseDetail = cases.data.features.find(
+              (c) => c.attributes.Case_no_ === parseInt(buildingCase)
+            );
+            await writeCaseDetail(caseDetail.attributes, now);
+          }
+
+          if (feature.attributes.DateoftheLastCase) {
             if (!district.nonResidential) district.nonResidential = [];
             district.nonResidential.push(feature.attributes);
           } else {
