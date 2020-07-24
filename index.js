@@ -102,7 +102,8 @@ const getChpStyle = () => {
       th a:active {
         color: blue;
       }
-    </style>`;
+    </style>
+    <script data-ad-client="ca-pub-2845669748705451" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>`;
 };
 
 const writeCaseDetail = async (caseDetails, now) => {
