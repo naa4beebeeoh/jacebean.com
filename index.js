@@ -489,6 +489,7 @@ const chp = async () => {
     }
 
     fs.copyFileSync("docs/chp/index.html", "docs/index.html");
+    fs.copyFileSync("docs/chp/index.html", "docs/404.html");
   } catch (e) {
     console.error(e);
     process.exit(30001);
