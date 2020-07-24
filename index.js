@@ -2,6 +2,7 @@
 
 const axios = require("axios");
 const fs = require("fs");
+const moment = require("moment");
 const path = require("path");
 const prettier = require("prettier");
 
@@ -68,7 +69,7 @@ const getChpStyle = () => {
     </style>`;
 };
 
-const writeCaseDetail = async (caseDetail, now) => {
+const writeCaseDetail = async (caseDetails, now) => {
   let html = `
 <!DOCTYPE html>
 <html lang="zh-Hant" translate="no">
@@ -77,20 +78,20 @@ const writeCaseDetail = async (caseDetail, now) => {
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="keywords" content="新型冠狀病毒, 個案, ${
-      caseDetail["個案編號"]
+      caseDetails[0].attributes["個案編號"]
     }" />
-    <title>新型冠狀病毒個案 - ${caseDetail["個案編號"]}</title>
+    <title>新型冠狀病毒個案 - ${caseDetails[0].attributes["個案編號"]}</title>
     <meta property="title" content="新型冠狀病毒個案 - ${
-      caseDetail["個案編號"]
+      caseDetails[0].attributes["個案編號"]
     }" />
     <meta property="og:title" content="新型冠狀病毒個案 - ${
-      caseDetail["個案編號"]
+      caseDetails[0].attributes["個案編號"]
     }" />
     <meta property="description" content="新型冠狀病毒個案 - ${
-      caseDetail["個案編號"]
+      caseDetails[0].attributes["個案編號"]
     }" />
     <meta property="og:description" content="新型冠狀病毒個案 - ${
-      caseDetail["個案編號"]
+      caseDetails[0].attributes["個案編號"]
     }" />
     ${getChpStyle()}
   </head>
@@ -100,13 +101,13 @@ const writeCaseDetail = async (caseDetail, now) => {
         <th>最後更新日期</th>
       </tr>
       <tr>
-        <td>${now.toLocaleString()}</td>
+        <td>${now.format("DD/MM/YYYY, hh:mm:ss A")}</td>
       </tr>
     </table>
     <table>
       <tr>
         <th>個案編號</th>
-        <th>${caseDetail["個案編號"]}</th>
+        <th>${caseDetails[0].attributes["個案編號"]}</th>
       </tr>`;
 
   for (let key of [
@@ -123,7 +124,23 @@ const writeCaseDetail = async (caseDetail, now) => {
     html += `
       <tr>
         <td>${key.replace(/_/g, "/")}</td>
-        <td>${caseDetail[key]}</td>
+        <td>${caseDetails[0].attributes[key]}</td>
+      </tr>`;
+  }
+
+  for (let caseDetail of caseDetails) {
+    html += `
+      <tr>
+        <th>相關確診個案</th>
+        <th>${caseDetail.attributes.Related_confirmed_cases}</th>
+      </tr>
+      <tr>
+        <td>地區</td>
+        <td>${caseDetail.attributes["地區"]}</td>
+      </tr>
+      <tr>
+        <td>大廈名單</td>
+        <td>${caseDetail.attributes["大廈名單"]}</td>
       </tr>`;
   }
 
@@ -133,12 +150,15 @@ const writeCaseDetail = async (caseDetail, now) => {
   </body>
 </html>`;
 
-  await prettierHtml(html, `docs/chp/${caseDetail["個案編號"]}.html`);
+  await prettierHtml(
+    html,
+    `docs/chp/${caseDetails[0].attributes["個案編號"]}.html`
+  );
 };
 
 const chp = async () => {
   try {
-    const now = new Date();
+    const now = moment();
 
     const baseUrl =
       "https://services8.arcgis.com/PXQv9PaDJHzt8rp0/arcgis/rest/services";
@@ -148,10 +168,18 @@ const chp = async () => {
     const buildings = await axios.get(
       `${baseUrl}/StayBuildingWithHistory_0227_View/${urlSuffix}`
     );
+    if (buildings.data.error) {
+      console.error(buildings.data.error);
+      process.exit(30002);
+    }
 
     const cases = await axios.get(
       `${baseUrl}/Merge_Display_0227_View/${urlSuffix}`
     );
+    if (cases.data.error) {
+      console.error(cases.data.error);
+      process.exit(30003);
+    }
 
     const districts = [
       {
@@ -209,7 +237,6 @@ const chp = async () => {
         district: "Southern",
         filename: "southern.html",
       },
-
       {
         name: "大埔",
         district: "Tai Po",
@@ -255,15 +282,11 @@ const chp = async () => {
           );
 
           for (let buildingCase of feature.attributes.Related_confirmed_cases) {
-            const caseDetail = cases.data.features.find(
+            feature.attributes.caseDetails = cases.data.features.filter(
               (c) => c.attributes.Case_no_ === parseInt(buildingCase)
             );
 
-            await writeCaseDetail(caseDetail.attributes, now);
-
-            if (!feature.attributes.caseDetails)
-              feature.attributes.caseDetails = [];
-            feature.attributes.caseDetails.push(caseDetail.attributes);
+            await writeCaseDetail(feature.attributes.caseDetails, now);
           }
 
           if (feature.attributes.DateoftheLastCase) {
@@ -306,7 +329,7 @@ const chp = async () => {
         <th>最後更新日期</th>
       </tr>
       <tr>
-        <td>${now.toLocaleString()}</td>
+        <td>${now.format("DD/MM/YYYY, hh:mm:ss A")}</td>
       </tr>
     </table>
     <table>
@@ -368,7 +391,7 @@ const chp = async () => {
         <th>最後更新日期</th>
       </tr>
       <tr>
-        <td>${now.toLocaleString()}</td>
+        <td>${now.format("DD/MM/YYYY, hh:mm:ss A")}</td>
       </tr>
     </table>
     <table>
@@ -389,12 +412,9 @@ const chp = async () => {
         }+${building["大廈名單"].replace(/ /g, "+")}">${
           building["大廈名單"]
         }</a></td>
-        <td>${building.caseDetails
-          .map(
-            (c) =>
-              `<a target="_blank" href="/chp/${c.Case_no_}.html">${c.Case_no_}</a>`
-          )
-          .join(",<br />")}</td>
+        <td>${building.Related_confirmed_cases.sort()
+          .map((c) => `<a target="_blank" href="/chp/${c}.html">${c}</a>`)
+          .join("<br />")}</td>
       </tr>`;
       }
 
@@ -412,10 +432,7 @@ const chp = async () => {
       });
 
       for (let building of district.nonResidential) {
-        const date = new Date(building.DateoftheLastCase);
-        const day = date.getDate();
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
+        const date = moment(building.DateoftheLastCase);
 
         html += `
       <tr>
@@ -424,13 +441,12 @@ const chp = async () => {
         }+${building["大廈名單"].replace(/ /g, "+")}">${
           building["大廈名單"]
         }</a></td>
-        <td>${year}-${month}-${day}</td>
-        <td>${building.caseDetails
-          .map(
-            (c) =>
-              `<a target="_blank" href="/chp/${c.Case_no_}.html">${c.Case_no_}</a>`
-          )
-          .join(",<br />")}</td>
+        <td>${date.format("DD")}/${date.format("MM")}/${date.format(
+          "YYYY"
+        )}</td>
+        <td>${building.Related_confirmed_cases.sort()
+          .map((c) => `<a target="_blank" href="/chp/${c}.html">${c}</a>`)
+          .join("<br />")}</td>
       </tr>`;
       }
 
@@ -446,7 +462,7 @@ const chp = async () => {
     fs.copyFileSync("docs/chp/index.html", "docs/index.html");
   } catch (e) {
     console.error(e);
-    process.exit(1);
+    process.exit(30001);
   }
 };
 
@@ -538,17 +554,17 @@ const itunes = async () => {
     fs.copyFileSync("docs/itunes/hk/index.html", "docs/itunes/index.html");
   } catch (e) {
     console.error(e);
-    process.exit(2);
+    process.exit(20001);
   }
 };
 
 const run = async () => {
   try {
     await chp();
-    await itunes();
+    // await itunes();
   } catch (e) {
     console.error(e);
-    process.exit(3);
+    process.exit(10001);
   }
 };
 
