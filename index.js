@@ -155,11 +155,9 @@ const writeCaseDetail = async (caseDetails, now) => {
     "發病日期",
     "性別",
     "年齡",
-    "入住醫院名稱",
     "住院_出院_死亡",
     "香港_非香港居民",
     "個案分類",
-    "確定_懷疑",
   ]) {
     html += `
       <tr>
