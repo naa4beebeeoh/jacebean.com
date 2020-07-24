@@ -258,7 +258,12 @@ const chp = async () => {
             const caseDetail = cases.data.features.find(
               (c) => c.attributes.Case_no_ === parseInt(buildingCase)
             );
+
             await writeCaseDetail(caseDetail.attributes, now);
+
+            if (!feature.attributes.caseDetails)
+              feature.attributes.caseDetails = [];
+            feature.attributes.caseDetails.push(caseDetail.attributes);
           }
 
           if (feature.attributes.DateoftheLastCase) {
@@ -384,7 +389,12 @@ const chp = async () => {
         }+${building["大廈名單"].replace(/ /g, "+")}">${
           building["大廈名單"]
         }</a></td>
-        <td>${building.Related_confirmed_cases}</td>
+        <td>${building.caseDetails
+          .map(
+            (c) =>
+              `<a target="_blank" href="/chp/${c.Case_no_}.html">${c.Case_no_}</a>`
+          )
+          .join(",<br />")}</td>
       </tr>`;
       }
 
@@ -409,13 +419,18 @@ const chp = async () => {
 
         html += `
       <tr>
-        <td><a target="_blank" href="https://maps.google.com/maps?q=${
+        <td><a target="_blank" href="https://www.google.com/maps?q=${
           district.name
         }+${building["大廈名單"].replace(/ /g, "+")}">${
           building["大廈名單"]
         }</a></td>
         <td>${year}-${month}-${day}</td>
-        <td>${building.Related_confirmed_cases}</td>
+        <td>${building.caseDetails
+          .map(
+            (c) =>
+              `<a target="_blank" href="/chp/${c.Case_no_}.html">${c.Case_no_}</a>`
+          )
+          .join(",<br />")}</td>
       </tr>`;
       }
 
