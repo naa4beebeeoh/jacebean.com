@@ -134,7 +134,10 @@ const writeCaseDetail = async (caseDetails, now) => {
   <body>
     <table>
       <tr>
-        <th>最後更新日期</th>
+        <th>
+          <span style="float: left;">最後更新日期</span
+          ><span style="float: right;"><a href="/">🏠</a>&nbsp;</span>
+        </th>
       </tr>
       <tr>
         <td>${now.format("DD/MM/YYYY, hh:mm:ss A")}</td>
@@ -357,7 +360,10 @@ const chp = async () => {
   <body>
     <table>
       <tr>
-        <th>最後更新日期</th>
+        <th>
+          <span style="float: left;">最後更新日期</span
+          ><span style="float: right;"><a href="/">🏠</a>&nbsp;</span>
+        </th>
       </tr>
       <tr>
         <td>${now.format("DD/MM/YYYY, hh:mm:ss A")}</td>
@@ -417,7 +423,10 @@ const chp = async () => {
   <body>
     <table>
       <tr>
-        <th>最後更新日期</th>
+        <th>
+          <span style="float: left;">最後更新日期</span
+          ><span style="float: right;"><a href="/">🏠</a>&nbsp;</span>
+        </th>
       </tr>
       <tr>
         <td>${now.format("DD/MM/YYYY, hh:mm:ss A")}</td>
