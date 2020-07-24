@@ -190,9 +190,12 @@ const writeCaseDetail = async (caseDetails, now) => {
         <td>大廈名單</td>
         <td><a target="_blank" href="https://www.google.com/maps?q=${
           caseDetail.attributes["地區"]
-        }+${caseDetail.attributes["大廈名單"].replace(/ /g, "+")}">${
-      caseDetail.attributes["大廈名單"]
-    }</a></td>
+        }+${caseDetail.attributes["大廈名單"]
+      .replace(/ \(非住宅\)$/, "")
+      .replace(/ /g, "+")}">${caseDetail.attributes["大廈名單"].replace(
+      / \(非住宅\)$/,
+      ""
+    )}</a></td>
       </tr>`;
   }
 
@@ -447,9 +450,12 @@ const chp = async () => {
       <tr>
         <td><a target="_blank" href="https://www.google.com/maps?q=${
           district.name
-        }+${building["大廈名單"].replace(/ /g, "+")}">${
-          building["大廈名單"]
-        }</a></td>
+        }+${building["大廈名單"]
+          .replace(/ \(非住宅\)$/, "")
+          .replace(/ /g, "+")}">${building["大廈名單"].replace(
+          / \(非住宅\)$/,
+          ""
+        )}</a></td>
         <td>${building.Related_confirmed_cases.sort()
           .map((c) => `<a href="/chp/${c}.html">${c}</a>`)
           .join("<br />")}</td>
@@ -476,9 +482,12 @@ const chp = async () => {
       <tr>
         <td><a target="_blank" href="https://www.google.com/maps?q=${
           district.name
-        }+${building["大廈名單"].replace(/ /g, "+")}">${
-          building["大廈名單"]
-        }</a></td>
+        }+${building["大廈名單"]
+          .replace(/ \(非住宅\)$/, "")
+          .replace(/ /g, "+")}">${building["大廈名單"].replace(
+          / \(非住宅\)$/,
+          ""
+        )}</a></td>
         <td>${date.format("DD")}/${date.format("MM")}/${date.format(
           "YYYY"
         )}</td>
