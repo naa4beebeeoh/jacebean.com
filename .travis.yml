@@ -1,7 +1,9 @@
 language: node_js
 node_js: 12
 install: npm install --production
-script: ./index.js
+script:
+  - npm start
+  - find docs -name '*.html' | sort | sed 's/^docs/https:\/\/www.jacebean.com/' > docs/sitemap.txt
 deploy:
   provider: pages
   skip_cleanup: true
