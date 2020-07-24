@@ -129,10 +129,14 @@ const writeCaseDetail = async (caseDetails, now) => {
   }
 
   for (let caseDetail of caseDetails) {
+    const relatedCases = caseDetail.attributes.Related_confirmed_cases.match(
+      /\d+/g
+    );
+
     html += `
       <tr>
         <th>相關確診個案</th>
-        <th>${caseDetail.attributes.Related_confirmed_cases}</th>
+        <th>${relatedCases.sort()}</th>
       </tr>
       <tr>
         <td>地區</td>
