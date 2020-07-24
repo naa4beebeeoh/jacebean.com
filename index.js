@@ -86,6 +86,22 @@ const getChpStyle = () => {
       a:active {
         color: blue;
       }
+
+      th a:link {
+        color: white;
+      }
+
+      th a:visited {
+        color: yellow;
+      }
+
+      th a:hover {
+        color: red;
+      }
+
+      th a:active {
+        color: blue;
+      }
     </style>`;
 };
 
@@ -156,15 +172,24 @@ const writeCaseDetail = async (caseDetails, now) => {
     html += `
       <tr>
         <th>相關確診個案</th>
-        <th>${relatedCases.sort()}</th>
+        <th>${relatedCases
+          .sort()
+          .map((c) => `<a href="/chp/${c}.html">${c}</a>`)
+          .join("<br />")}</th>
       </tr>
       <tr>
         <td>地區</td>
-        <td>${caseDetail.attributes["地區"]}</td>
+        <td><a href="/chp/${caseDetail.attributes["地區"]}.html">${
+      caseDetail.attributes["地區"]
+    }</a></td>
       </tr>
       <tr>
         <td>大廈名單</td>
-        <td>${caseDetail.attributes["大廈名單"]}</td>
+        <td><a target="_blank" href="https://www.google.com/maps?q=${
+          caseDetail.attributes["地區"]
+        }+${caseDetail.attributes["大廈名單"].replace(/ /g, "+")}">${
+      caseDetail.attributes["大廈名單"]
+    }</a></td>
       </tr>`;
   }
 
@@ -209,92 +234,74 @@ const chp = async () => {
       {
         name: "中西區",
         district: "Central & Western",
-        filename: "centralwestern.html",
       },
       {
         name: "東區",
         district: "Eastern",
-        filename: "eastern.html",
       },
       {
         name: "離島",
         district: "Islands",
-        filename: "islands.html",
       },
       {
         name: "九龍城",
         district: "Kowloon City",
-        filename: "kowlooncity.html",
       },
       {
         name: "葵青",
         district: "Kwai Tsing",
-        filename: "kwaitsing.html",
       },
       {
         name: "觀塘",
         district: "Kwun Tong",
-        filename: "kwuntong.html",
       },
       {
         name: "北區",
         district: "North",
-        filename: "north.html",
       },
       {
         name: "西貢",
         district: "Sai Kung",
-        filename: "saikung.html",
       },
       {
         name: "沙田",
         district: "Sha Tin",
-        filename: "shatin.html",
       },
       {
         name: "深水埗",
         district: "Sham Shui Po",
-        filename: "shamshuipo.html",
       },
       {
         name: "南區",
         district: "Southern",
-        filename: "southern.html",
       },
       {
         name: "大埔",
         district: "Tai Po",
-        filename: "taipo.html",
       },
       {
         name: "荃灣",
         district: "Tsuen Wan",
-        filename: "tsuenwan.html",
       },
       {
         name: "屯門",
         district: "Tuen Mun",
-        filename: "tuenmun.html",
       },
       {
         name: "灣仔",
         district: "Wan Chai",
-        filename: "wanchai.html",
       },
       {
         name: "黃大仙",
         district: "Wong Tai Sin",
-        filename: "wongtaisin.html",
       },
       {
         name: "油尖旺",
         district: "Yau Tsim Mong",
-        filename: "yautsimmong.html",
       },
       {
         name: "元朗",
         district: "Yuen Long",
-        filename: "yuenlong.html",
       },
     ];
 
@@ -368,9 +375,7 @@ const chp = async () => {
     for (let district of districts) {
       html += `
       <tr>
-        <td><a target="_blank" href="/chp/${district.filename}">${
-        district.name
-      }</a></td>
+        <td><a href="/chp/${district.name}.html">${district.name}</a></td>
         <td>${district.residential.length + district.nonResidential.length}</td>
       </tr>`;
     }
@@ -437,7 +442,7 @@ const chp = async () => {
           building["大廈名單"]
         }</a></td>
         <td>${building.Related_confirmed_cases.sort()
-          .map((c) => `<a target="_blank" href="/chp/${c}.html">${c}</a>`)
+          .map((c) => `<a href="/chp/${c}.html">${c}</a>`)
           .join("<br />")}</td>
       </tr>`;
       }
@@ -469,7 +474,7 @@ const chp = async () => {
           "YYYY"
         )}</td>
         <td>${building.Related_confirmed_cases.sort()
-          .map((c) => `<a target="_blank" href="/chp/${c}.html">${c}</a>`)
+          .map((c) => `<a href="/chp/${c}.html">${c}</a>`)
           .join("<br />")}</td>
       </tr>`;
       }
@@ -480,7 +485,7 @@ const chp = async () => {
   </body>
 </html>`;
 
-      await prettierHtml(html, `docs/chp/${district.filename}`);
+      await prettierHtml(html, `docs/chp/${district.name}.html`);
     }
 
     fs.copyFileSync("docs/chp/index.html", "docs/index.html");
