@@ -590,7 +590,7 @@ const itunes = async () => {
 const run = async () => {
   try {
     await chp();
-    // await itunes();
+    await itunes();
   } catch (e) {
     console.error(e);
     process.exit(10001);
