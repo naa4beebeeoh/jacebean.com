@@ -50,6 +50,12 @@ const getChpStyle = () => {
         width: 100%;
       }
 
+      hr {
+        border: none;
+        height: 1px;
+        background-color: #ddd;
+      }
+
       td, th {
         border: 1px solid #ddd;
         padding: 8px;
@@ -177,7 +183,7 @@ const writeCaseDetail = async (caseDetails, now) => {
         <th>${relatedCases
           .sort()
           .map((c) => `<a href="/chp/${c}.html">${c}</a>`)
-          .join("<br />")}</th>
+          .join("<hr />")}</th>
       </tr>
       <tr>
         <td>地區</td>
@@ -457,7 +463,7 @@ const chp = async () => {
         )}</a></td>
         <td>${building.Related_confirmed_cases.sort()
           .map((c) => `<a href="/chp/${c}.html">${c}</a>`)
-          .join("<br />")}</td>
+          .join("<hr />")}</td>
       </tr>`;
       }
 
@@ -492,7 +498,7 @@ const chp = async () => {
         )}</td>
         <td>${building.Related_confirmed_cases.sort()
           .map((c) => `<a href="/chp/${c}.html">${c}</a>`)
-          .join("<br />")}</td>
+          .join("<hr />")}</td>
       </tr>`;
       }
 
