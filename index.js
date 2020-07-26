@@ -44,6 +44,20 @@ const getChpStyle = () => {
   return `
     <link href="/favicon.ico" rel="icon" type="image/png" />
     <style>
+      .finger {
+        display: inline-block;
+        position:relative;
+        -webkit-animation:linear infinite alternate;
+        -webkit-animation-name: run;
+        -webkit-animation-duration: 0.5s;
+      }
+
+      @-webkit-keyframes run {
+        0% { left: 0;}
+        50%{ left : 1%;}
+        100%{ left: 0;}
+      }
+
       table {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
@@ -172,6 +186,8 @@ const writeCaseDetail = async (caseDetails, now) => {
       </tr>`;
   }
 
+  let isFirst = true;
+
   for (let caseDetail of caseDetails) {
     const relatedCases = caseDetail.attributes.Related_confirmed_cases.match(
       /\d+/g
@@ -182,14 +198,25 @@ const writeCaseDetail = async (caseDetails, now) => {
         <th>相關確診個案</th>
         <th>${relatedCases
           .sort()
-          .map((c) => `<a href="/chp/${c}.html">${c}</a>`)
+          .map((c, index) => {
+            if (isFirst)
+              return `<a href="/chp/${c}.html">${c}</a><div class="finger">👈</div>`;
+            else return `<a href="/chp/${c}.html">${c}</a>`;
+          })
           .join("<hr />")}</th>
       </tr>
       <tr>
         <td>地區</td>
         <td><a href="/chp/${caseDetail.attributes["地區"]}.html">${
       caseDetail.attributes["地區"]
-    }</a></td>
+    }</a>`;
+
+    if (isFirst) {
+      html += '<div class="finger">👈</div>';
+    }
+
+    html += `
+        </td>
       </tr>
       <tr>
         <td>大廈名單</td>
@@ -200,7 +227,15 @@ const writeCaseDetail = async (caseDetails, now) => {
       .replace(/ /g, "+")}">${caseDetail.attributes["大廈名單"].replace(
       / \(非住宅\)$/,
       ""
-    )}</a></td>
+    )}</a>`;
+
+    if (isFirst) {
+      html += '<div class="finger">👈</div>';
+      isFirst = false;
+    }
+
+    html += `
+        </td>
       </tr>`;
   }
 
@@ -224,18 +259,19 @@ const chp = async () => {
       "https://services8.arcgis.com/PXQv9PaDJHzt8rp0/arcgis/rest/services";
     const urlSuffix =
       "FeatureServer/0/query?f=json&where=Status%3D%27Existing%27&outFields=*";
+    const buildingUrl = `${baseUrl}/StayBuildingWithHistory_0227_View/${urlSuffix}`;
+    const caseUrl = `${baseUrl}/Merge_Display_0227_View/${urlSuffix}`;
 
-    const buildings = await axios.get(
-      `${baseUrl}/StayBuildingWithHistory_0227_View/${urlSuffix}`
-    );
+    console.log(buildingUrl);
+    console.log(caseUrl);
+
+    const buildings = await axios.get(buildingUrl);
     if (buildings.data.error) {
       console.error(buildings.data.error);
       process.exit(30002);
     }
 
-    const cases = await axios.get(
-      `${baseUrl}/Merge_Display_0227_View/${urlSuffix}`
-    );
+    const cases = await axios.get(caseUrl);
     if (cases.data.error) {
       console.error(cases.data.error);
       process.exit(30003);
@@ -386,10 +422,20 @@ const chp = async () => {
         )})</th>
       </tr>`;
 
+    let isFirst = true;
+
     for (let district of districts) {
       html += `
       <tr>
-        <td><a href="/chp/${district.name}.html">${district.name}</a></td>
+        <td><a href="/chp/${district.name}.html">${district.name}</a>`;
+
+      if (isFirst) {
+        html += '<div class="finger">👈</div>';
+        isFirst = false;
+      }
+
+      html += `
+        </td>
         <td>${district.residential.length + district.nonResidential.length}</td>
       </tr>`;
     }
@@ -450,6 +496,8 @@ const chp = async () => {
         return a["大廈名單"].localeCompare(b["大廈名單"]);
       });
 
+      isFirst = true;
+
       for (let building of district.residential) {
         html += `
       <tr>
@@ -460,11 +508,24 @@ const chp = async () => {
           .replace(/ /g, "+")}">${building["大廈名單"].replace(
           / \(非住宅\)$/,
           ""
-        )}</a></td>
-        <td>${building.Related_confirmed_cases.sort()
-          .map((c) => `<a href="/chp/${c}.html">${c}</a>`)
+        )}</a>`;
+
+        if (isFirst) {
+          html += '<div class="finger">👈</div>';
+        }
+
+        html += `
+          </td>
+        <td style="min-width: 60px">${building.Related_confirmed_cases.sort()
+          .map((c, index) => {
+            if (isFirst)
+              return `<a href="/chp/${c}.html">${c}</a><div class="finger">👈</div>`;
+            else return `<a href="/chp/${c}.html">${c}</a>`;
+          })
           .join("<hr />")}</td>
       </tr>`;
+
+        isFirst = false;
       }
 
       html += `
@@ -480,6 +541,8 @@ const chp = async () => {
         return a["大廈名單"].localeCompare(b["大廈名單"]);
       });
 
+      isFirst = true;
+
       for (let building of district.nonResidential) {
         const date = moment(building.DateoftheLastCase);
 
@@ -492,14 +555,27 @@ const chp = async () => {
           .replace(/ /g, "+")}">${building["大廈名單"].replace(
           / \(非住宅\)$/,
           ""
-        )}</a></td>
+        )}</a>`;
+
+        if (isFirst) {
+          html += '<div class="finger">👈</div>';
+        }
+
+        html += `
+          </td>
         <td>${date.format("DD")}/${date.format("MM")}/${date.format(
           "YYYY"
         )}</td>
-        <td>${building.Related_confirmed_cases.sort()
-          .map((c) => `<a href="/chp/${c}.html">${c}</a>`)
+        <td style="min-width: 60px">${building.Related_confirmed_cases.sort()
+          .map((c, index) => {
+            if (isFirst)
+              return `<a href="/chp/${c}.html">${c}</a><div class="finger">👈</div>`;
+            else return `<a href="/chp/${c}.html">${c}</a>`;
+          })
           .join("<hr />")}</td>
       </tr>`;
+
+        isFirst = false;
       }
 
       html += `
