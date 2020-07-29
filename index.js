@@ -237,6 +237,16 @@ const writeCaseDetail = async (caseDetails, now) => {
     html += `
         </td>
       </tr>`;
+
+    const date = moment(caseDetail.attributes.DateoftheLastCase);
+
+    html += `
+      <tr>
+        <td>最後有個案在出現病徵期間逗留的日期</td>
+        <td>${date.format("DD")}/${date.format("MM")}/${date.format(
+      "YYYY"
+    )}</td>
+      </tr>`;
   }
 
   html += `
@@ -276,6 +286,12 @@ const chp = async () => {
       console.error(cases.data.error);
       process.exit(30003);
     }
+
+    fs.writeFileSync(
+      "docs/buildings.json",
+      JSON.stringify(buildings.data, null, 2)
+    );
+    fs.writeFileSync("docs/cases.json", JSON.stringify(cases.data, null, 2));
 
     const districts = [
       {
@@ -505,6 +521,10 @@ const chp = async () => {
       isFirst = true;
 
       for (let building of district.residential) {
+        let isNew = false;
+        if (now.diff(moment(building.FirstReportedDate), "days") < 2)
+          isNew = true;
+
         html += `
       <tr>
         <td><a target="_blank" href="https://www.google.com/maps?q=${
@@ -514,7 +534,7 @@ const chp = async () => {
           .replace(/ /g, "+")}">${building["大廈名單"].replace(
           / \(非住宅\)$/,
           ""
-        )}</a>`;
+        )}${isNew ? " 🆕" : ""}</a>`;
 
         if (isFirst) {
           html += '<div class="finger">👈</div>';
@@ -555,6 +575,10 @@ const chp = async () => {
       for (let building of district.nonResidential) {
         const date = moment(building.DateoftheLastCase);
 
+        let isNew = false;
+        if (now.diff(moment(building.FirstReportedDate), "days") < 2)
+          isNew = true;
+
         html += `
       <tr>
         <td><a target="_blank" href="https://www.google.com/maps?q=${
@@ -564,7 +588,7 @@ const chp = async () => {
           .replace(/ /g, "+")}">${building["大廈名單"].replace(
           / \(非住宅\)$/,
           ""
-        )}</a>`;
+        )}${isNew ? " 🆕" : ""}</a>`;
 
         if (isFirst) {
           html += '<div class="finger">👈</div>';
