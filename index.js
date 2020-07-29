@@ -359,20 +359,26 @@ const chp = async () => {
             /\d+/g
           );
 
-          for (let buildingCase of feature.attributes.Related_confirmed_cases) {
-            feature.attributes.caseDetails = cases.data.features.filter(
-              (c) => c.attributes.Case_no_ === parseInt(buildingCase)
-            );
+          if (
+            feature.attributes &&
+            feature.attributes.Related_confirmed_cases
+          ) {
+            for (let buildingCase of feature.attributes
+              .Related_confirmed_cases) {
+              feature.attributes.caseDetails = cases.data.features.filter(
+                (c) => c.attributes.Case_no_ === parseInt(buildingCase)
+              );
 
-            await writeCaseDetail(feature.attributes.caseDetails, now);
+              await writeCaseDetail(feature.attributes.caseDetails, now);
+            }
           }
 
-          if (feature.attributes.DateoftheLastCase) {
-            if (!district.nonResidential) district.nonResidential = [];
-            district.nonResidential.push(feature.attributes);
-          } else {
+          if (feature.attributes.Remarks_ResDate) {
             if (!district.residential) district.residential = [];
             district.residential.push(feature.attributes);
+          } else {
+            if (!district.nonResidential) district.nonResidential = [];
+            district.nonResidential.push(feature.attributes);
           }
         }
       }
@@ -514,7 +520,8 @@ const chp = async () => {
           html += '<div class="finger">👈</div>';
         }
 
-        html += `
+        if (building.Related_confirmed_cases) {
+          html += `
           </td>
         <td style="min-width: 60px">${building.Related_confirmed_cases.sort()
           .map((c, index) => {
@@ -522,8 +529,10 @@ const chp = async () => {
               return `<a href="/chp/${c}.html">${c}</a><div class="finger">👈</div>`;
             else return `<a href="/chp/${c}.html">${c}</a>`;
           })
-          .join("<hr />")}</td>
-      </tr>`;
+          .join("<hr />")}</td>`;
+        } else html += `<td style="min-width: 60px">&nbsp;</td>`;
+
+        html += `</tr>`;
 
         isFirst = false;
       }
@@ -565,15 +574,20 @@ const chp = async () => {
           </td>
         <td>${date.format("DD")}/${date.format("MM")}/${date.format(
           "YYYY"
-        )}</td>
+        )}</td>`;
+
+        if (building.Related_confirmed_cases) {
+          html += `
         <td style="min-width: 60px">${building.Related_confirmed_cases.sort()
           .map((c, index) => {
             if (isFirst)
               return `<a href="/chp/${c}.html">${c}</a><div class="finger">👈</div>`;
             else return `<a href="/chp/${c}.html">${c}</a>`;
           })
-          .join("<hr />")}</td>
-      </tr>`;
+          .join("<hr />")}</td>`;
+        } else html += `<td style="min-width: 60px">&nbsp;</td>`;
+
+        html += `</tr>`;
 
         isFirst = false;
       }
