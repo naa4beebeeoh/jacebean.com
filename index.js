@@ -366,6 +366,10 @@ const chp = async () => {
         name: "元朗",
         district: "Yuen Long",
       },
+      {
+        name: "有待提供",
+        district: "",
+      },
     ];
 
     for (let feature of buildings.data.features) {
@@ -389,11 +393,12 @@ const chp = async () => {
             }
           }
 
+          if (!district.residential) district.residential = [];
+          if (!district.nonResidential) district.nonResidential = [];
+
           if (feature.attributes.Remarks_ResDate) {
-            if (!district.residential) district.residential = [];
             district.residential.push(feature.attributes);
           } else {
-            if (!district.nonResidential) district.nonResidential = [];
             district.nonResidential.push(feature.attributes);
           }
         }

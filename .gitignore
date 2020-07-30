@@ -1,4 +1,6 @@
 .DS_Store
 docs/**/*.html
+docs/buildings.json
+docs/cases.json
 docs/sitemap.txt
 node_modules/
