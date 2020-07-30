@@ -158,7 +158,7 @@ const writeCaseDetail = async (caseDetails, now) => {
   }歲 ${caseDetails[0].attributes["住院_出院_死亡"]} ${
     caseDetails[0].attributes["香港_非香港居民"]
   } ${caseDetails[0].attributes["個案分類"]}" />
-    <meta property="og:image" content="https://www.jacebean.com/favicon.ico" />
+    <meta property="og:image" content="https://www.jacebean.com/favicon.png" />
     ${getChpStyle()}
   </head>
   <body>
@@ -439,7 +439,7 @@ const chp = async () => {
     <meta property="og:title" content="新型冠狀病毒個案大廈名單" />
     <meta property="description" content="新型冠狀病毒個案大廈名單" />
     <meta property="og:description" content="新型冠狀病毒個案大廈名單" />
-    <meta property="og:image" content="https://www.jacebean.com/favicon.ico" />
+    <meta property="og:image" content="https://www.jacebean.com/favicon.png" />
     ${getChpStyle()}
   </head>
   <body>
@@ -513,7 +513,7 @@ const chp = async () => {
     <meta property="og:description" content="新型冠狀病毒個案大廈名單 - ${
       district.name
     }" />
-    <meta property="og:image" content="https://www.jacebean.com/favicon.ico" />
+    <meta property="og:image" content="https://www.jacebean.com/favicon.png" />
     ${getChpStyle()}
   </head>
   <body>
@@ -686,7 +686,7 @@ const itunes = async () => {
     <meta property="og:title" content="Top 100 Movies - ${country.name}" />
     <meta property="description" content="${top10}" />
     <meta property="og:description" content="${top10}" />
-    <meta property="og:image" content="https://www.jacebean.com/favicon.ico" />
+    <meta property="og:image" content="https://www.jacebean.com/favicon.png" />
     <link href="/favicon.ico" rel="icon" type="image/png" />
     <style>
       div.container {
