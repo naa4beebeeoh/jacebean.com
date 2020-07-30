@@ -144,14 +144,14 @@ const writeCaseDetail = async (caseDetails, now) => {
     <meta property="og:title" content="新型冠狀病毒個案 - ${
       caseDetails[0].attributes["個案編號"]
     }" />
-    <meta property="description" content="新型冠狀病毒個案 - ${
+    <meta property="description" content="${
       caseDetails[0].attributes["發病日期"]
     } ${caseDetails[0].attributes["性別"]} ${
     caseDetails[0].attributes["年齡"]
   }歲 ${caseDetails[0].attributes["住院_出院_死亡"]} ${
     caseDetails[0].attributes["香港_非香港居民"]
   } ${caseDetails[0].attributes["個案分類"]}" />
-    <meta property="og:description" content="新型冠狀病毒個案 - ${
+    <meta property="og:description" content="${
       caseDetails[0].attributes["發病日期"]
     } ${caseDetails[0].attributes["性別"]} ${
     caseDetails[0].attributes["年齡"]
