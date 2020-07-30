@@ -296,6 +296,7 @@ const chp = async () => {
       process.exit(30003);
     }
 
+    fs.mkdirSync("docs/chp", { recursive: true });
     fs.writeFileSync(
       "docs/chp/buildings.json",
       JSON.stringify(buildings.data, null, 2)
