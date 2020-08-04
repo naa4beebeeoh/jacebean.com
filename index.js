@@ -541,9 +541,11 @@ const chp = async () => {
       isFirst = true;
 
       for (let building of district.residential) {
-        let isNew = false;
+        let isNew = "";
         if (now.diff(moment(building.FirstReportedDate), "days") < 2)
-          isNew = true;
+          isNew = " ⛔";
+        else if (now.diff(moment(building.FirstReportedDate), "days") < 3)
+          isNew = " ⚠️";
 
         html += `
       <tr>
@@ -554,7 +556,7 @@ const chp = async () => {
           .replace(/ /g, "+")}">${building["大廈名單"].replace(
           / \(非住宅\)$/,
           ""
-        )}${isNew ? " 🆕" : ""}</a>`;
+        )}${isNew}</a>`;
 
         if (isFirst) {
           html += '<div class="finger">👈</div>';
@@ -595,9 +597,11 @@ const chp = async () => {
       for (let building of district.nonResidential) {
         const date = moment(building.DateoftheLastCase);
 
-        let isNew = false;
+        let isNew = "";
         if (now.diff(moment(building.FirstReportedDate), "days") < 2)
-          isNew = true;
+          isNew = " ⛔";
+        else if (now.diff(moment(building.FirstReportedDate), "days") < 3)
+          isNew = " ⚠️";
 
         html += `
       <tr>
@@ -608,7 +612,7 @@ const chp = async () => {
           .replace(/ /g, "+")}">${building["大廈名單"].replace(
           / \(非住宅\)$/,
           ""
-        )}${isNew ? " 🆕" : ""}</a>`;
+        )}${isNew}</a>`;
 
         if (isFirst) {
           html += '<div class="finger">👈</div>';
