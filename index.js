@@ -281,8 +281,8 @@ const chp = async () => {
     const buildingUrl = `${baseUrl}/StayBuildingWithHistory_0227_View/${urlSuffix}`;
     const caseUrl = `${baseUrl}/Merge_Display_0227_View/${urlSuffix}`;
 
-    console.log(buildingUrl);
-    console.log(caseUrl);
+    console.log(`curl '${buildingUrl}'`);
+    console.log(`curl '${caseUrl}'`);
 
     const buildings = await axios.get(buildingUrl);
     if (buildings.data.error) {
