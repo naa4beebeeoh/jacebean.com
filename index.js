@@ -387,6 +387,9 @@ const chp = async () => {
 
     for (let feature of buildings.data.features) {
       for (let district of districts) {
+        if (!district.residential) district.residential = [];
+        if (!district.nonResidential) district.nonResidential = [];
+
         if (feature.attributes.District === district.district) {
           feature.attributes.Related_confirmed_cases = feature.attributes.Related_confirmed_cases.match(
             /\d+/g
@@ -405,9 +408,6 @@ const chp = async () => {
               await writeCaseDetail(feature.attributes.caseDetails, now);
             }
           }
-
-          if (!district.residential) district.residential = [];
-          if (!district.nonResidential) district.nonResidential = [];
 
           if (feature.attributes.Remarks_ResDate) {
             district.residential.push(feature.attributes);
