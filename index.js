@@ -278,8 +278,8 @@ const chp = async () => {
       "https://services8.arcgis.com/PXQv9PaDJHzt8rp0/arcgis/rest/services";
     const urlSuffix =
       "FeatureServer/0/query?f=json&where=Status%3D%27Existing%27&outFields=*";
-    const buildingUrl = `${baseUrl}/StayBuildingWithHistory_0227_View/${urlSuffix}`;
-    const caseUrl = `${baseUrl}/Merge_Display_0227_View/${urlSuffix}`;
+    const buildingUrl = `${baseUrl}/StayBuildingWithHistory_0227_test_View/${urlSuffix}`;
+    const caseUrl = `${baseUrl}/Merge_Display_0227_test_view/${urlSuffix}`;
 
     console.log(`curl '${buildingUrl}'`);
     console.log(`curl '${caseUrl}'`);
@@ -405,11 +405,12 @@ const chp = async () => {
                 (c) => c.attributes.Case_no_ === parseInt(buildingCase)
               );
 
-              await writeCaseDetail(feature.attributes.caseDetails, now);
+              if (feature.attributes.caseDetails.length > 0)
+                await writeCaseDetail(feature.attributes.caseDetails, now);
             }
           }
 
-          if (feature.attributes.Remarks_ResDate) {
+          if (feature.attributes.ResidentialCase === "Y") {
             district.residential.push(feature.attributes);
           } else {
             district.nonResidential.push(feature.attributes);
