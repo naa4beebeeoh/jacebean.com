@@ -1,8 +1,8 @@
 language: node_js
 node_js: 12
-install: npm install --production
+install: yarn install --production
 script:
-  - npm start
+  - yarn start
   - find docs -type d | sort | sed 's/^docs/https:\/\/www.jacebean.com/' > docs/sitemap.txt
   - find docs -name '*.html' | sort | sed 's/^docs/https:\/\/www.jacebean.com/' >> docs/sitemap.txt
 deploy:
