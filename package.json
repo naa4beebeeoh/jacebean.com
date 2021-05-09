@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -15,16 +16,10 @@
     "prettier": "2.2.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "11.0.0",
-    "@commitlint/config-conventional": "11.0.0",
-    "husky": "4.3.7",
-    "lint-staged": "10.5.3"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
-    }
+    "@commitlint/cli": "12.1.1",
+    "@commitlint/config-conventional": "12.1.1",
+    "husky": "^6.0.0",
+    "lint-staged": "11.0.0"
   },
   "lint-staged": {
     "*.{js,css,md,html}": "prettier --write"
