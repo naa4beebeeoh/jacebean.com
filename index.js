@@ -198,9 +198,8 @@ const writeCaseDetail = async (caseDetails, now) => {
   let isFirst = true;
 
   for (let caseDetail of caseDetails) {
-    const relatedCases = caseDetail.attributes.Related_confirmed_cases.match(
-      /\d+/g
-    );
+    const relatedCases =
+      caseDetail.attributes.Related_confirmed_cases.match(/\d+/g);
 
     html += `
       <tr>
@@ -391,9 +390,8 @@ const chp = async () => {
         if (!district.nonResidential) district.nonResidential = [];
 
         if (feature.attributes.District === district.district) {
-          feature.attributes.Related_confirmed_cases = feature.attributes.Related_confirmed_cases.match(
-            /\d+/g
-          );
+          feature.attributes.Related_confirmed_cases =
+            feature.attributes.Related_confirmed_cases.match(/\d+/g);
 
           if (
             feature.attributes &&

@@ -18,10 +18,7 @@
   "devDependencies": {
     "@commitlint/cli": "12.1.4",
     "@commitlint/config-conventional": "12.1.4",
-    "husky": "7.0.1",
-    "lint-staged": "11.0.0"
-  },
-  "lint-staged": {
-    "*.{js,css,md,html}": "prettier --write"
+    "git-format-staged": "2.1.2",
+    "husky": "7.0.1"
   }
 }
