@@ -19,6 +19,6 @@
     "@commitlint/cli": "12.1.4",
     "@commitlint/config-conventional": "12.1.4",
     "git-format-staged": "2.1.2",
-    "husky": "7.0.1"
+    "husky": "7.0.2"
   }
 }
