@@ -13,7 +13,7 @@
   "dependencies": {
     "axios": "0.21.3",
     "moment": "2.29.1",
-    "prettier": "2.3.2"
+    "prettier": "2.4.1"
   },
   "devDependencies": {
     "@commitlint/cli": "13.1.0",
