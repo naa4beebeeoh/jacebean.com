@@ -390,13 +390,13 @@ const chp = async () => {
         if (!district.nonResidential) district.nonResidential = [];
 
         if (feature.attributes.District === district.district) {
-          feature.attributes.Related_confirmed_cases =
-            feature.attributes.Related_confirmed_cases.match(/\d+/g);
-
           if (
             feature.attributes &&
             feature.attributes.Related_confirmed_cases
           ) {
+            feature.attributes.Related_confirmed_cases =
+              feature.attributes.Related_confirmed_cases.match(/\d+/g);
+
             for (let buildingCase of feature.attributes
               .Related_confirmed_cases) {
               feature.attributes.caseDetails = cases.data.features.filter(
