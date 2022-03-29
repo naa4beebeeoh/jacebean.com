@@ -568,10 +568,10 @@ get-stream@^6.0.0:
   resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-6.0.1.tgz#a262d8eef67aced57c2852ad6167526a43cbf7b7"
   integrity sha512-ts6Wi+2j3jQjqi70w5AlN8DFnkSwC+MqmxEzdEALB2qXZYV3X/b1CTfgPLGJNMeAWxdPfU8FO1ms3NUfaHCPYg==
 
-git-format-staged@2.1.3:
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/git-format-staged/-/git-format-staged-2.1.3.tgz#d1d033942a0d31b83fa64f6587b01ca13de0d29e"
-  integrity sha512-M9q3W4CCQShYPHUiINhYUtHPJ3E1/aa3Ajbk8q2OAaCgqEmqZ6gBI6P1fnwD54/Fs9SA2MaOvDxpYRNa1OVGIA==
+git-format-staged@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/git-format-staged/-/git-format-staged-3.0.0.tgz#66fe89fcb537f78e8129412dc0b2511b34d49e32"
+  integrity sha512-cdDJxV06qY8ucBsW/uIFR4PYN/kDHl43nG8yg+VPPaDeLAf8hEPhEIJTeJ+yRClxcDSpoTmDPiFZUoxFx1wPCg==
 
 git-raw-commits@^2.0.0:
   version "2.0.9"
