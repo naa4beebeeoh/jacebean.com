@@ -16,7 +16,7 @@
     "prettier": "2.7.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "17.1.2",
+    "@commitlint/cli": "17.3.0",
     "@commitlint/config-conventional": "17.1.0",
     "git-format-staged": "3.0.0",
     "husky": "8.0.1"
