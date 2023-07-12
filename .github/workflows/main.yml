@@ -38,7 +38,7 @@ jobs:
           find docs -name '*.html' | sort | sed 's/^docs/https:\/\/www.jacebean.com/' >> docs/sitemap.txt
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4.4.2
+        uses: JamesIves/github-pages-deploy-action@v4.4.3
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: docs # The folder the action should deploy.
