@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jace Bean - Abstract Kid</title>
+  <style>
+    :root {
+      --primary: #ff6f61;
+      --secondary: #6ec6ff;
+      --accent: #ffd54f;
+      --bg: #f9f9f9;
+      --text: #222;
+      --white: #fff;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, 'Liberation Sans', sans-serif;
+      background: linear-gradient(120deg, var(--primary) 0%, var(--secondary) 60%, var(--accent) 100%);
+      color: var(--text);
+      scroll-behavior: smooth;
+    }
+    /* Remove header-specific styles */
+    /* Remove sticky, box-shadow, and background from header */
+    /* Style #home like other sections */
+    #home {
+      text-align: center;
+      padding-top: 3rem;
+      padding-bottom: 2rem;
+    }
+    #home h1 {
+      margin: 0 0 0.2em 0;
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+      color: var(--white);
+      text-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    }
+    #home p {
+      margin: 0 0 1em 0;
+      font-size: 1.2rem;
+      font-style: italic;
+      letter-spacing: 1px;
+      color: var(--white);
+      text-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    }
+    #home nav {
+      margin: 2rem auto 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    #home nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.3em 0.8em;
+      border-radius: 20px;
+      transition: background 0.2s;
+    }
+    #home nav a:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    section {
+      max-width: 900px;
+      margin: 2.5rem auto;
+      padding: 0 1rem;
+      background: none;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    #about {
+      text-align: center;
+    }
+    #about p {
+      font-size: 1.1rem;
+      color: #444;
+      margin: 0.5em 0 0 0;
+    }
+    #gallery {
+      margin-top: 3rem;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .artwork {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+      transition: transform 0.15s;
+    }
+    .artwork:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .artwork-img {
+      width: 100%;
+      height: 160px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+      border-radius: 8px;
+      margin-bottom: 0.8em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 2.2rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      /* Placeholder for artwork */
+    }
+    .artwork-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0.2em 0 0.1em 0;
+      color: var(--primary);
+    }
+    .artwork-desc {
+      font-size: 0.98rem;
+      color: #555;
+      text-align: center;
+      margin: 0 0 0.2em 0;
+    }
+    #contact {
+      max-width: 500px;
+      margin: 3rem auto 2rem auto;
+      background: none;
+      border-radius: 0;
+      box-shadow: none;
+      padding: 2rem 1rem 1.5rem 1rem;
+    }
+    #contact h2 {
+      margin-top: 0;
+      color: #111;
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .contact-form input, .contact-form textarea {
+      padding: 0.7em;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+      resize: vertical;
+    }
+    .contact-form button {
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      padding: 0.7em 1.5em;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .contact-form button:hover {
+      background: var(--secondary);
+    }
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-top: 1.2rem;
+    }
+    .social-links a {
+      color: var(--primary);
+      font-size: 1.5rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .social-links a:hover {
+      color: var(--secondary);
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem 1rem 1rem;
+      color: #888;
+      font-size: 0.98rem;
+    }
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+      margin-left: 0.5em;
+    }
+    @media (max-width: 600px) {
+      #home h1 {
+        font-size: 1.6rem;
+      }
+      #home nav {
+        gap: 1rem;
+      }
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+      #contact {
+        padding: 1.2rem 0.5rem;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <section id="home">
+    <h1>Jace Bean</h1>
+    <p>Abstract Kid</p>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </section>
+
+  <section id="about">
+    <h2>About</h2>
+    <p>Jace Bean is a visual artist whose journey began with a fascination for color and form. Embracing abstract expressionism, Jace explores the interplay of emotion and geometry, drawing inspiration from urban landscapes and the chaos of everyday life. Each piece is a vibrant reflection of curiosity, spontaneity, and the beauty found in abstraction.</p>
+  </section>
+
+  <section id="gallery">
+    <h2>Gallery</h2>
+    <div class="gallery-grid">
+      <div class="artwork">
+        <div class="artwork-img">1</div>
+        <div class="artwork-title">Urban Pulse</div>
+        <div class="artwork-desc">A rhythmic blend of city lights and abstract forms, capturing the energy of metropolitan life.</div>
+      </div>
+      <div class="artwork">
+        <div class="artwork-img">2</div>
+        <div class="artwork-title">Chromatic Drift</div>
+        <div class="artwork-desc">Vivid colors flow and collide, representing the unpredictability of creative thought.</div>
+      </div>
+      <div class="artwork">
+        <div class="artwork-img">3</div>
+        <div class="artwork-title">Fragmented Dreams</div>
+        <div class="artwork-desc">Shattered shapes and soft hues evoke the fleeting nature of memory and imagination.</div>
+      </div>
+      <div class="artwork">
+        <div class="artwork-img">4</div>
+        <div class="artwork-title">Neon Reverie</div>
+        <div class="artwork-desc">Bold neon tones and swirling lines create a sense of movement and wonder.</div>
+      </div>
+      <div class="artwork">
+        <div class="artwork-img">5</div>
+        <div class="artwork-title">Echoes of Silence</div>
+        <div class="artwork-desc">Minimalist forms and muted colors express tranquility amidst chaos.</div>
+      </div>
+      <div class="artwork">
+        <div class="artwork-img">6</div>
+        <div class="artwork-title">Spectrum Boundaries</div>
+        <div class="artwork-desc">A study in contrasts, where sharp lines meet soft gradients in a dance of color.</div>
+      </div>
+      <div class="artwork">
+        <div class="artwork-img">7</div>
+        <div class="artwork-title">Vortex of Thought</div>
+        <div class="artwork-desc">Spiraling forms and vibrant hues symbolize the whirlwind of inspiration.</div>
+      </div>
+      <div class="artwork">
+        <div class="artwork-img">8</div>
+        <div class="artwork-title">Celestial Mosaic</div>
+        <div class="artwork-desc">A cosmic arrangement of shapes and colors, inspired by the night sky.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <form class="contact-form" action="https://formspree.io/f/mvgqpqke" method="POST" autocomplete="off">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <div class="social-links">
+      <a href="https://instagram.com/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://twitter.com/" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="https://facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+    </div>
+  </section>
+
+  <section id="footer">
+    &copy; 2024 Jace Bean. All rights reserved.
+  </section>
+</body>
+</html> 
