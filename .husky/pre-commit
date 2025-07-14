@@ -1,4 +1,0 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-yarn git-format-staged -f 'prettier --ignore-unknown --stdin-filepath "{}"' '*.js'
