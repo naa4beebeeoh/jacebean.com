@@ -182,6 +182,81 @@
     .social-links a:hover {
       color: var(--secondary);
     }
+    #shop {
+      text-align: center;
+    }
+    #shop > p {
+      font-size: 1.05rem;
+      color: #444;
+      max-width: 600px;
+      margin: 0.5em auto 1.5em auto;
+      line-height: 1.5;
+    }
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .shop-item {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      padding: 1.2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .shop-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .shop-item i {
+      font-size: 2rem;
+      color: var(--primary);
+    }
+    .shop-item span {
+      font-weight: 600;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+    .shop-item a {
+      color: var(--secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    .shop-item a:hover {
+      text-decoration: underline;
+    }
+    .shop-cta {
+      display: inline-block;
+      background: #ff9900;
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.75em 1.8em;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 0.5rem;
+    }
+    .shop-cta:hover {
+      background: #e88a00;
+      transform: translateY(-2px);
+    }
+    .shop-cta i {
+      margin-right: 0.4em;
+    }
+    .affiliate-disclosure {
+      font-size: 0.82rem;
+      color: #999;
+      max-width: 600px;
+      margin: 1.2rem auto 0 auto;
+      line-height: 1.4;
+    }
     footer, #footer {
       text-align: center;
       padding: 1.5rem 1rem 1rem 1rem;
@@ -218,6 +293,7 @@
       <a href="#home">Home</a>
       <a href="#about">About</a>
       <a href="#gallery">Gallery</a>
+      <a href="#shop">Shop</a>
       <a href="#contact">Contact</a>
     </nav>
   </section>
@@ -273,6 +349,37 @@
     </div>
   </section>
 
+  <section id="shop">
+    <h2>Shop Art Supplies</h2>
+    <p>Explore the tools and materials I use to create my abstract pieces. Purchases through these links help support my work at no extra cost to you.</p>
+    <div class="shop-grid">
+      <div class="shop-item">
+        <i class="fas fa-palette"></i>
+        <span>Acrylic Paints</span>
+        <a href="https://amzn.to/4fxOjh6" target="_blank" rel="noopener noreferrer sponsored">Shop on Amazon &rarr;</a>
+      </div>
+      <div class="shop-item">
+        <i class="fas fa-paint-brush"></i>
+        <span>Brushes &amp; Tools</span>
+        <a href="https://amzn.to/4fxOjh6" target="_blank" rel="noopener noreferrer sponsored">Shop on Amazon &rarr;</a>
+      </div>
+      <div class="shop-item">
+        <i class="fas fa-image"></i>
+        <span>Canvas &amp; Paper</span>
+        <a href="https://amzn.to/4fxOjh6" target="_blank" rel="noopener noreferrer sponsored">Shop on Amazon &rarr;</a>
+      </div>
+      <div class="shop-item">
+        <i class="fas fa-book"></i>
+        <span>Sketchbooks</span>
+        <a href="https://amzn.to/4fxOjh6" target="_blank" rel="noopener noreferrer sponsored">Shop on Amazon &rarr;</a>
+      </div>
+    </div>
+    <a class="shop-cta" href="https://amzn.to/4fxOjh6" target="_blank" rel="noopener noreferrer sponsored">
+      <i class="fab fa-amazon"></i>Browse All on Amazon
+    </a>
+    <p class="affiliate-disclosure">As an Amazon Associate, I earn from qualifying purchases.</p>
+  </section>
+
   <section id="contact">
     <h2>Contact</h2>
     <form class="contact-form" action="https://formspree.io/f/mvgqpqke" method="POST" autocomplete="off">
@@ -290,6 +397,7 @@
 
   <section id="footer">
     &copy; 2025 Jace Bean. All rights reserved.
+    <br><span class="affiliate-disclosure">As an Amazon Associate, I earn from qualifying purchases.</span>
   </section>
 </body>
 </html> 
