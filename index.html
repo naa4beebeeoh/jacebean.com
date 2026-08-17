@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hi, I'm Jace. I share Roblox gift cards on Amazon and Playasia — pick the store that works best for you.">
+  <title>Jace's Picks — Roblox Gift Cards</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf9f7;
+      --surface: #ffffff;
+      --text: #1a1a1a;
+      --muted: #6b7280;
+      --border: #e8e4df;
+      --accent: #ff9900;
+      --accent-hover: #e88a00;
+      --playasia: #2563eb;
+      --playasia-hover: #1d4ed8;
+      --tag-bg: #fef3e2;
+      --tag-text: #b45309;
+      --hero-from: #fff7ed;
+      --hero-to: #fdf2f8;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.06);
+      --radius: 16px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'DM Sans', 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      scroll-behavior: smooth;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 249, 247, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav a {
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+
+    .nav a:hover { color: var(--text); }
+
+    .hero {
+      background: linear-gradient(135deg, var(--hero-from) 0%, var(--hero-to) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3.5rem 1.25rem 3rem;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.35em 0.9em;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      margin: 0 0 0.75rem;
+      font-size: clamp(2rem, 5vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+
+    .hero p {
+      margin: 0 auto;
+      max-width: 520px;
+      font-size: 1.08rem;
+      color: var(--muted);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 3rem;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .section-head p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .roblox-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .roblox-logo {
+      height: 44px;
+      width: auto;
+      display: block;
+    }
+
+    .store-section {
+      margin-bottom: 3rem;
+    }
+
+    .store-section:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .store-intro {
+      margin: 0 0 1.5rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 560px;
+    }
+
+    .roblox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+
+    .roblox-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.15s, transform 0.15s;
+    }
+
+    .roblox-card:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-3px);
+    }
+
+    .roblox-card-visual {
+      background: linear-gradient(145deg, #232527 0%, #393b3d 100%);
+      padding: 1.25rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100px;
+    }
+
+    .roblox-card-visual img {
+      max-height: 100px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .roblox-card-body {
+      padding: 0.85rem 1rem 1rem;
+      text-align: center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .roblox-price {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .roblox-title {
+      margin: 0;
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .roblox-card-body a {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    #amazon .roblox-card-body a {
+      color: var(--accent);
+    }
+
+    #playasia .roblox-card-body a,
+    #playasia-usd .roblox-card-body a,
+    #playasia-eur .roblox-card-body a {
+      color: var(--playasia);
+    }
+
+    .roblox-card-body a:hover {
+      text-decoration: underline;
+    }
+
+    .about {
+      margin-top: 3.5rem;
+      padding: 2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-align: center;
+    }
+
+    .about h2 {
+      margin: 0 0 0.6rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .about p {
+      margin: 0 auto;
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.75rem 1.25rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    footer p { margin: 0.35rem 0; }
+
+    .disclosure {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    @media (max-width: 768px) {
+      .nav { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <a class="logo" href="#">Jace<span>Picks</span></a>
+      <nav class="nav">
+        <a href="#amazon">Amazon</a>
+        <a href="#playasia-usd">Playasia (USD)</a>
+        <a href="#playasia-eur">Playasia (EUR)</a>
+        <a href="#about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="hero-badge">Hi, I'm Jace</span>
+      <h1>Roblox gift cards I recommend</h1>
+      <p>I play Roblox — here are the two places I use to get gift cards. Pick Amazon or Playasia, whichever works best for you.</p>
+    </div>
+  </section>
+
+  <main>
+
+    <section class="store-section" id="amazon">
+      <div class="section-head">
+        <div class="roblox-header">
+          <img class="roblox-logo" src="https://images.rbxcdn.com/18590e0e1bf3dcef.png" alt="Roblox">
+          <div>
+            <h2>Roblox on Amazon</h2>
+            <p>Digital gift cards</p>
+          </div>
+        </div>
+      </div>
+      <p class="store-intro">I get my Roblox cards on Amazon. Pick an amount below.</p>
+
+      <div class="roblox-grid">
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://m.media-amazon.com/images/I/618a5kAIDJL._SL1010_.jpg" alt="Roblox Digital Gift Card - 60,000 Robux">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">60,000 Robux</p>
+            <p class="roblox-title">Includes exclusive virtual item</p>
+            <a href="https://www.amazon.com/Robux-Roblox-Online-Game-Code/dp/B0CPTGNZ7G?th=1&linkCode=ll2&tag=jacebean67-20&linkId=35dc90c10fc5d024c47f4cf65bdf5b00&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer sponsored">Buy on Amazon &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://m.media-amazon.com/images/I/61SapplETXL._SL1010_.jpg" alt="Roblox Digital Gift Card - 48,000 Robux">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">48,000 Robux</p>
+            <p class="roblox-title">Includes exclusive virtual item</p>
+            <a href="https://www.amazon.com/Robux-Roblox-Online-Game-Code/dp/B0CPTG9267?th=1&linkCode=ll2&tag=jacebean67-20&linkId=dad567acd32c5acd20547836d01d52e8&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer sponsored">Buy on Amazon &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://m.media-amazon.com/images/I/61aTK0YW1+L._SL1010_.jpg" alt="Roblox Digital Gift Card - 24,000 Robux">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">24,000 Robux</p>
+            <p class="roblox-title">Includes exclusive virtual item</p>
+            <a href="https://www.amazon.com/Robux-Roblox-Online-Game-Code/dp/B0BCD3886F?th=1&gaOptInStatus=true&linkCode=ll2&tag=jacebean67-20&linkId=51a98443b4fb02c7ae461974894ca626&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer sponsored">Buy on Amazon &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://m.media-amazon.com/images/I/61U7IHNJX+L._SL1010_.jpg" alt="Roblox Digital Gift Card - 17,000 Robux">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">17,000 Robux</p>
+            <p class="roblox-title">Includes exclusive virtual item</p>
+            <a href="https://www.amazon.com/Robux-Roblox-Online-Game-Code/dp/B0BCDJ9Q4W?th=1&gaOptInStatus=true&linkCode=ll2&tag=jacebean67-20&linkId=1d87216f6b0ad8118e32e9bf600e0485&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer sponsored">Buy on Amazon &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://m.media-amazon.com/images/I/61Vqmpa8lUL._SL1010_.jpg" alt="Roblox Digital Gift Card - 14,000 Robux">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">14,000 Robux</p>
+            <p class="roblox-title">Includes exclusive virtual item</p>
+            <a href="https://www.amazon.com/Robux-Roblox-Online-Game-Code/dp/B0BCDSPNQ1?th=1&gaOptInStatus=true&linkCode=ll2&tag=jacebean67-20&linkId=40e63545c55e7af41f718018c17cdf6a&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer sponsored">Buy on Amazon &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://m.media-amazon.com/images/I/61vuyAUj0rL._SL1010_.jpg" alt="Roblox Digital Gift Card - 11,000 Robux">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">11,000 Robux</p>
+            <p class="roblox-title">Includes exclusive virtual item</p>
+            <a href="https://www.amazon.com/Robux-Roblox-Online-Game-Code/dp/B08R5N6W6B?th=1&gaOptInStatus=true&linkCode=ll2&tag=jacebean67-20&linkId=c88de424a09a72563fe8a4b83205027c&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer sponsored">Buy on Amazon &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://m.media-amazon.com/images/I/61+bm3Sqm8L._SL1010_.jpg" alt="Roblox Digital Gift Card - 8,000 Robux">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">8,000 Robux</p>
+            <p class="roblox-title">Includes exclusive virtual item</p>
+            <a href="https://www.amazon.com/Robux-Roblox-Online-Game-Code/dp/B0BCDDPBCK?th=1&gaOptInStatus=true&linkCode=ll2&tag=jacebean67-20&linkId=6eb87cc7099554f68d429b6631625a94&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer sponsored">Buy on Amazon &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://m.media-amazon.com/images/I/61wYy8fkl0L._SL1010_.jpg" alt="Roblox Digital Gift Card - 5,250 Robux">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">5,250 Robux</p>
+            <p class="roblox-title">Includes exclusive virtual item</p>
+            <a href="https://www.amazon.com/Robux-Roblox-Online-Game-Code/dp/B07RZ75JW3?th=1&gaOptInStatus=true&linkCode=ll2&tag=jacebean67-20&linkId=d0e1adcb5717eab67b7bb6e0a5a58a1a&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer sponsored">Buy on Amazon &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://m.media-amazon.com/images/I/611g0p2qOrL._SL1010_.jpg" alt="Roblox Digital Gift Card - 4,000 Robux">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">4,000 Robux</p>
+            <p class="roblox-title">Includes exclusive virtual item</p>
+            <a href="https://www.amazon.com/Robux-Roblox-Online-Game-Code/dp/B0BCD38868?th=1&gaOptInStatus=true&linkCode=ll2&tag=jacebean67-20&linkId=d803019bcff7e7e3da2ccdd708f30a27&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer sponsored">Buy on Amazon &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://m.media-amazon.com/images/I/61ZAa0U4J1L._SL1010_.jpg" alt="Roblox Digital Gift Card - 3,000 Robux">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">3,000 Robux</p>
+            <p class="roblox-title">Includes exclusive virtual item</p>
+            <a href="https://www.amazon.com/Robux-Roblox-Online-Game-Code/dp/B0BCDJGJ9N?th=1&gaOptInStatus=true&linkCode=ll2&tag=jacebean67-20&linkId=d92a24c99504a914f3c396d5d758ed4e&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer sponsored">Buy on Amazon &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://m.media-amazon.com/images/I/61M8pM14EqL._SL1010_.jpg" alt="Roblox Digital Gift Card - 2,500 Robux">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">2,500 Robux</p>
+            <p class="roblox-title">Includes exclusive virtual item</p>
+            <a href="https://www.amazon.com/Robux-Roblox-Online-Game-Code/dp/B07RX6FBFR?th=1&gaOptInStatus=true&linkCode=ll2&tag=jacebean67-20&linkId=1e74d100c9624990bba4a4ac5b8cb68d&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer sponsored">Buy on Amazon &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://m.media-amazon.com/images/I/61FXyel8T6L._SL1010_.jpg" alt="Roblox Digital Gift Card - 2,000 Robux">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">2,000 Robux</p>
+            <p class="roblox-title">Includes exclusive virtual item</p>
+            <a href="https://www.amazon.com/Robux-Roblox-Online-Game-Code/dp/B0BCCYLB13?th=1&gaOptInStatus=true&linkCode=ll2&tag=jacebean67-20&linkId=12ec3d2ef0775dc02703c0d55c6efa65&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer sponsored">Buy on Amazon &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://m.media-amazon.com/images/I/61hGzzZGOfL._SL1010_.jpg" alt="Roblox Digital Gift Card - 1,500 Robux">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">1,500 Robux</p>
+            <p class="roblox-title">Includes exclusive virtual item</p>
+            <a href="https://www.amazon.com/Robux-Roblox-Online-Game-Code/dp/B0BCCXZDT5?th=1&gaOptInStatus=true&linkCode=ll2&tag=jacebean67-20&linkId=ec22044a5bd762f4ff5ab94495ef866e&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer sponsored">Buy on Amazon &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://m.media-amazon.com/images/I/61s70-2HoBL._SL1010_.jpg" alt="Roblox Digital Gift Card - 1,000 Robux">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">1,000 Robux</p>
+            <p class="roblox-title">Includes exclusive virtual item</p>
+            <a href="https://www.amazon.com/Robux-Roblox-Online-Game-Code/dp/B07RZ74VLR?th=1&gaOptInStatus=true&linkCode=ll2&tag=jacebean67-20&linkId=c7d70b2f5917535be57060fa2417f519&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer sponsored">Buy on Amazon &rarr;</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="store-section" id="playasia-usd">
+      <div class="section-head">
+        <div class="roblox-header">
+          <img class="roblox-logo" src="https://images.rbxcdn.com/18590e0e1bf3dcef.png" alt="Roblox">
+          <div>
+            <h2>Roblox on Playasia (USD)</h2>
+            <p>Digital gift cards</p>
+          </div>
+        </div>
+      </div>
+      <p class="store-intro">I also get Roblox cards from Playasia in USD. Pick an amount below.</p>
+
+      <div class="roblox-grid">
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://s.pacn.ws/1/p/13l/roblox-card-100-usd-712883.7.jpg" alt="Roblox gift card 100 USD">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">100 USD</p>
+            <a href="https://www.play-asia.com/en/roblox-card-100-usd/13/70fa2b?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Playasia &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://s.pacn.ws/1/p/1bd/roblox-card-75--usd-852581.2.jpg" alt="Roblox gift card 75 USD">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">75 USD</p>
+            <a href="https://www.play-asia.com/en/roblox-card-75--usd/13/70i9ut?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Playasia &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://s.pacn.ws/1/p/zj/roblox-card-50--usd-639785.9.jpg" alt="Roblox gift card 50 USD">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">50 USD</p>
+            <a href="https://www.play-asia.com/en/roblox-card-50--usd/13/70dpnt?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Playasia &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://s.pacn.ws/1/p/1d8/roblox-card-40--usd-886127.2.jpg" alt="Roblox gift card 40 USD">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">40 USD</p>
+            <a href="https://www.play-asia.com/en/roblox-card-40--usd/13/70izqn?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Playasia &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://s.pacn.ws/1/p/wv/roblox-card-25--usd-591883.9.jpg" alt="Roblox gift card 25 USD">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">25 USD</p>
+            <a href="https://www.play-asia.com/en/roblox-card-25--usd/13/70cop7?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Playasia &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://s.pacn.ws/1/p/13l/roblox-card-20--usd-712877.8.jpg" alt="Roblox gift card 20 USD">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">20 USD</p>
+            <a href="https://www.play-asia.com/en/roblox-card-20--usd/13/70fa25?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Playasia &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://s.pacn.ws/1/p/zp/roblox-card-15--usd-642823.10.jpg" alt="Roblox gift card 15 USD">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">15 USD</p>
+            <a href="https://www.play-asia.com/en/roblox-card-15--usd/13/70ds07?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Playasia &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://s.pacn.ws/1/p/wv/roblox-card-10--usd-591877.10.jpg" alt="Roblox gift card 10 USD">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">10 USD</p>
+            <a href="https://www.play-asia.com/en/roblox-card-10--usd/13/70cop1?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Playasia &rarr;</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="store-section" id="playasia-eur">
+      <div class="section-head">
+        <div class="roblox-header">
+          <img class="roblox-logo" src="https://images.rbxcdn.com/18590e0e1bf3dcef.png" alt="Roblox">
+          <div>
+            <h2>Roblox on Playasia (EUR)</h2>
+            <p>Digital gift cards</p>
+          </div>
+        </div>
+      </div>
+      <p class="store-intro">I also get Roblox cards from Playasia in EUR. Pick an amount below.</p>
+
+      <div class="roblox-grid">
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://s.pacn.ws/1/p/1f0/918243.1.jpg" alt="Roblox gift card 100 EUR">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">100 EUR</p>
+            <a href="https://www.play-asia.com/en/roblox-card-100-eur-europe/13/70joir?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Playasia &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://s.pacn.ws/1/p/162/roblox-card-50--eur-757103.5.jpg" alt="Roblox gift card 50 EUR">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">50 EUR</p>
+            <a href="https://www.play-asia.com/en/roblox-card-50--eur-europe/13/70g86n?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Playasia &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://s.pacn.ws/1/p/18g/roblox-card-25--eur-800137.2.jpg" alt="Roblox gift card 25 EUR">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">25 EUR</p>
+            <a href="https://www.play-asia.com/en/roblox-card-25--eur-europe/13/70h5e1?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Playasia &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://s.pacn.ws/1/p/115/roblox-card-20--eur-668561.5.jpg" alt="Roblox gift card 20 EUR">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">20 EUR</p>
+            <a href="https://www.play-asia.com/en/roblox-card-20--eur-europe/13/70ebv5?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Playasia &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://s.pacn.ws/1/p/18g/roblox-card-15--eur-800135.2.jpg" alt="Roblox gift card 15 EUR">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">15 EUR</p>
+            <a href="https://www.play-asia.com/en/roblox-card-15--eur-europe/13/70h5dz?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Playasia &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://s.pacn.ws/1/p/115/roblox-card-10--eur-668557.5.jpg" alt="Roblox gift card 10 EUR">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">10 EUR</p>
+            <a href="https://www.play-asia.com/en/roblox-card-10--eur-europe/13/70ebv1?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Playasia &rarr;</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <h2>About me</h2>
+      <p>I'm Jace — a kid who built this site to share Roblox gift cards I actually use. I get them from Amazon and Playasia. I'm saving up for school tuition, so thanks for checking out my picks.</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Jace</p>
+    <p class="disclosure">As an Amazon Associate, I earn from qualifying purchases. I may also earn commission from Playasia purchases through my links.</p>
+  </footer>
+
+</body>
+</html>
