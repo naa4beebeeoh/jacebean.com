@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Hi, I'm Jace. I share trending Amazon picks — gifts, school essentials, planners, and more.">
-  <title>Jace's Picks — Trending Amazon Finds</title>
+  <meta name="description" content="Hi, I'm Jace. I share trending picks from Amazon and Play-Asia — gifts, school essentials, games, and imports.">
+  <title>Jace's Picks — Trending Finds</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
@@ -344,6 +344,65 @@
 
     .product-card-body a:hover { text-decoration: underline; }
 
+    .partner-store {
+      margin-top: 3rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 0;
+    }
+
+    .partner-store-visual {
+      background: linear-gradient(145deg, #dbeafe 0%, #bfdbfe 50%, #e0e7ff 100%);
+      padding: 2rem 2.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      min-height: 100%;
+    }
+
+    .partner-store-body {
+      padding: 1.75rem 2rem 1.75rem 0.5rem;
+    }
+
+    .partner-store-body h2 {
+      margin: 0 0 0.5rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .partner-store-body p {
+      margin: 0 0 1.25rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 520px;
+    }
+
+    .btn-playasia {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #2563eb;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.75em 1.5em;
+      border-radius: 10px;
+      transition: background 0.15s, transform 0.15s;
+    }
+
+    .btn-playasia:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+    }
+
     .about {
       margin-top: 3.5rem;
       padding: 2rem;
@@ -396,6 +455,18 @@
       }
 
       .nav { gap: 1rem; }
+
+      .partner-store {
+        grid-template-columns: 1fr;
+      }
+
+      .partner-store-visual {
+        padding: 1.75rem;
+      }
+
+      .partner-store-body {
+        padding: 0 1.5rem 1.75rem;
+      }
     }
   </style>
 </head>
@@ -407,6 +478,7 @@
       <nav class="nav">
         <a href="#featured">Featured</a>
         <a href="#trending">Trending</a>
+        <a href="#playasia">Play-Asia</a>
         <a href="#about">About</a>
       </nav>
     </div>
@@ -416,7 +488,7 @@
     <div class="hero-inner">
       <span class="hero-badge">Hi, I'm Jace</span>
       <h1>Trending products I think you'll like</h1>
-      <p>I scout Amazon for standout items — gifts, school essentials, and everyday favorites — so you don't have to scroll for hours.</p>
+      <p>I scout Amazon and Play-Asia for standout items — gifts, school essentials, games, and imports — so you don't have to scroll for hours.</p>
     </div>
   </section>
 
@@ -494,16 +566,25 @@
       </div>
     </section>
 
+    <section class="partner-store" id="playasia">
+      <div class="partner-store-visual" aria-hidden="true">🎮</div>
+      <div class="partner-store-body">
+        <h2>Play-Asia</h2>
+        <p>I also browse Play-Asia for games, collectibles, and imports from Japan and Asia. If that's your thing, you can shop through my link — it helps me out the same way my Amazon picks do.</p>
+        <a class="btn-playasia" href="https://www.play-asia.com/?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Visit Play-Asia</a>
+      </div>
+    </section>
+
     <section class="about" id="about">
       <h2>About me</h2>
-      <p>I'm Jace — a kid who built this site to share products I find genuinely useful and trending. I'm saving up for school tuition, so thanks for checking out my picks.</p>
+      <p>I'm Jace — a kid who built this site to share products I find genuinely useful and trending on Amazon and Play-Asia. I'm saving up for school tuition, so thanks for checking out my picks.</p>
     </section>
 
   </main>
 
   <footer>
     <p>&copy; 2026 Jace</p>
-    <p class="disclosure">As an Amazon Associate, I earn from qualifying purchases.</p>
+    <p class="disclosure">As an Amazon Associate, I earn from qualifying purchases. I may also earn commission from Play-Asia purchases through my links.</p>
   </footer>
 
 </body>
