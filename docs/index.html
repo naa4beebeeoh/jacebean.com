@@ -403,6 +403,95 @@
       transform: translateY(-1px);
     }
 
+    .roblox-section {
+      margin-top: 3rem;
+    }
+
+    .roblox-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .roblox-logo {
+      height: 44px;
+      width: auto;
+      display: block;
+    }
+
+    .roblox-intro {
+      margin: 0 0 1.5rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 560px;
+    }
+
+    .roblox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+
+    .roblox-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.15s, transform 0.15s;
+    }
+
+    .roblox-card:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-3px);
+    }
+
+    .roblox-card-visual {
+      background: linear-gradient(145deg, #232527 0%, #393b3d 100%);
+      padding: 1.25rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100px;
+    }
+
+    .roblox-card-visual img {
+      max-height: 72px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .roblox-card-body {
+      padding: 0.85rem 1rem 1rem;
+      text-align: center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .roblox-price {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .roblox-card-body a {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    .roblox-card-body a:hover {
+      text-decoration: underline;
+    }
+
     .about {
       margin-top: 3.5rem;
       padding: 2rem;
@@ -478,6 +567,7 @@
       <nav class="nav">
         <a href="#featured">Featured</a>
         <a href="#trending">Trending</a>
+        <a href="#roblox">Roblox</a>
         <a href="#playasia">Play-Asia</a>
         <a href="#about">About</a>
       </nav>
@@ -561,6 +651,101 @@
             <h3>Organization Planner</h3>
             <p>Staying organized has never been easier with this planner!</p>
             <a href="https://amzn.to/455f9qW" target="_blank" rel="noopener noreferrer sponsored">Shop on Amazon &rarr;</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="roblox-section" id="roblox">
+      <div class="section-head">
+        <div class="roblox-header">
+          <img class="roblox-logo" src="https://images.rbxcdn.com/18590e0e1bf3dcef.png" alt="Roblox">
+          <div>
+            <h2>Roblox Gift Cards</h2>
+            <p>Sorted highest to lowest — via Play-Asia</p>
+          </div>
+        </div>
+      </div>
+      <p class="roblox-intro">I get my Roblox cards from Play-Asia. Pick an amount below — prices go from $100 down to $10.</p>
+
+      <div class="roblox-grid">
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://images.rbxcdn.com/18590e0e1bf3dcef.png" alt="Roblox gift card">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">$100 USD</p>
+            <a href="https://www.play-asia.com/zh/roblox-card-100-usd/13/70fa2b?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Play-Asia &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://images.rbxcdn.com/18590e0e1bf3dcef.png" alt="Roblox gift card">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">$75 USD</p>
+            <a href="https://www.play-asia.com/zh/roblox-card-75--usd/13/70i9ut?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Play-Asia &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://images.rbxcdn.com/18590e0e1bf3dcef.png" alt="Roblox gift card">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">$50 USD</p>
+            <a href="https://www.play-asia.com/zh/roblox-card-50--usd/13/70dpnt?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Play-Asia &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://images.rbxcdn.com/18590e0e1bf3dcef.png" alt="Roblox gift card">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">$40 USD</p>
+            <a href="https://www.play-asia.com/zh/roblox-card-40--usd/13/70izqn?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Play-Asia &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://images.rbxcdn.com/18590e0e1bf3dcef.png" alt="Roblox gift card">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">$25 USD</p>
+            <a href="https://www.play-asia.com/zh/roblox-card-25--usd/13/70cop7?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Play-Asia &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://images.rbxcdn.com/18590e0e1bf3dcef.png" alt="Roblox gift card">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">$20 USD</p>
+            <a href="https://www.play-asia.com/zh/roblox-card-20--usd/13/70fa25?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Play-Asia &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://images.rbxcdn.com/18590e0e1bf3dcef.png" alt="Roblox gift card">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">$15 USD</p>
+            <a href="https://www.play-asia.com/zh/roblox-card-15--usd/13/70ds07?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Play-Asia &rarr;</a>
+          </div>
+        </article>
+
+        <article class="roblox-card">
+          <div class="roblox-card-visual">
+            <img src="https://images.rbxcdn.com/18590e0e1bf3dcef.png" alt="Roblox gift card">
+          </div>
+          <div class="roblox-card-body">
+            <p class="roblox-price">$10 USD</p>
+            <a href="https://www.play-asia.com/zh/roblox-card-10--usd/13/70cop1?affiliate_id=1084257" target="_blank" rel="noopener noreferrer sponsored">Buy on Play-Asia &rarr;</a>
           </div>
         </article>
       </div>
